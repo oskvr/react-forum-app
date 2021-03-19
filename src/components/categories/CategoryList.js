@@ -1,6 +1,7 @@
 import { List } from '@chakra-ui/layout';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  BsAlarm,
   BsArchiveFill,
   BsChatDotsFill,
   BsExclamationCircle,
@@ -53,17 +54,27 @@ const categories = [
 ];
 
 export default function CategoryList() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch('https://forum-api-jkrop.ondigitalocean.app/sandbox/TestAPI/category')
+      .then(res => res.json())
+      .then(data => setCategories(data));
+  }, []);
+
   return (
     <List>
       {categories.map(category => (
-        <CategoryListItem
-          icon={category.icon}
-          iconColor={category.iconColor}
-          title={category.title}
-          description={category.description}
-          threadCount={category.threadCount}
-        />
+        <CategoryListItem category={category} />
       ))}
     </List>
   );
 }
+
+/* <CategoryListItem
+          icon={category.icon}
+          iconColor={category.iconColor}
+          title={category.name}
+          description={category.description}
+          threadCount={category.threadCount}
+        /> */

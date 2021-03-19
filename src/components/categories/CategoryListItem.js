@@ -10,13 +10,7 @@ import {
 } from '@chakra-ui/layout';
 import React from 'react';
 
-export default function CategoryListItem({
-  icon,
-  iconColor,
-  title,
-  description,
-  threadCount,
-}) {
+export default function CategoryListItem({ category }) {
   return (
     <Box>
       <HStack p="5">
@@ -28,33 +22,35 @@ export default function CategoryListItem({
           h="14"
           p="4"
           mr="3"
-          bg={iconColor}
+          bg={'red.500'}
         >
           <Box fontSize="2xl" color="white" userSelect="none">
-            {icon}
+            T
           </Box>
         </Flex>
         <Box>
           <Link href="#" color="blue.500">
             <Heading size="md" mb="1">
-              {title}
+              {category.name}
             </Heading>
           </Link>
-          <Text color="gray.600" fontSize="sm">
-            {description}
+          <Text color="gray.600" fontSize="sm" w="70%">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
+            reiciendis in velit repudiandae beatae dolor quas optio labore quod
+            fugit.
           </Text>
         </Box>
         <Spacer />
         <HStack spacing="5">
           <VStack spacing="0">
             <Text as="span" fontSize="2xl">
-              {threadCount}
+              {category.threads.length}
             </Text>
             <Text as="small" color="gray.500">
-              {threadCount === 1 ? 'Tråd' : 'Trådar'}
+              {category.threads.length === 1 ? 'Tråd' : 'Trådar'}
             </Text>
           </VStack>
-          <Box h="14" w="1" bg={iconColor}></Box>
+          <Box h="14" w="1" bg="red.500"></Box>
         </HStack>
       </HStack>
     </Box>
