@@ -1,7 +1,6 @@
 import { List } from '@chakra-ui/layout';
 import React, { useEffect, useState } from 'react';
 import {
-  BsAlarm,
   BsArchiveFill,
   BsChatDotsFill,
   BsExclamationCircle,
@@ -57,15 +56,21 @@ export default function CategoryList() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch('https://forum-api-jkrop.ondigitalocean.app/sandbox/TestAPI/category')
+    fetch('./mock_categories.json')
       .then(res => res.json())
       .then(data => setCategories(data));
   }, []);
 
+  // useEffect(() => {
+  //   fetch('https://forum-api-jkrop.ondigitalocean.app/sandbox/TestAPI/category')
+  //     .then(res => res.json())
+  //     .then(data => setCategories(data));
+  // }, []);
+
   return (
     <List>
       {categories.map(category => (
-        <CategoryListItem category={category} />
+        <CategoryListItem key={category._id} category={category} />
       ))}
     </List>
   );

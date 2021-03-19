@@ -1,15 +1,17 @@
-import { Box, Heading, HStack, Link, Spacer, Text } from '@chakra-ui/layout';
+import { Box, HStack, Link, Spacer, Text } from '@chakra-ui/layout';
 import React from 'react';
 import { BsChat } from 'react-icons/bs';
-
+import { Link as RouteLink } from 'react-router-dom';
 export default function Header() {
   return (
     <Box as="nav" shadow="sm">
       <HStack p="3" maxW="container.lg" mx="auto">
-        <BsChat style={{ fontSize: '2rem' }} />
-        <Heading fontWeight="thin" fontSize="2xl">
-          MyForum
-        </Heading>
+        <Link as={RouteLink} to="/" d="flex" alignItems="center">
+          <BsChat style={{ fontSize: '2rem' }} />
+          <Text as="span" fontWeight="thin" fontSize="2xl" ml="2">
+            MyForum
+          </Text>
+        </Link>
         <Spacer />
         <Link>Home</Link>
         <Link>Threads</Link>

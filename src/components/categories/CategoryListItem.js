@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Heading,
   HStack,
   Link,
   Spacer,
@@ -9,35 +8,38 @@ import {
   VStack,
 } from '@chakra-ui/layout';
 import React from 'react';
-
+import { Link as RouteLink } from 'react-router-dom';
 export default function CategoryListItem({ category }) {
   return (
-    <Box>
-      <HStack p="5">
+    <Box my="5">
+      <HStack>
         <Flex
           align="center"
           justify="center"
           rounded="full"
+          shrink="0"
           w="14"
           h="14"
           p="4"
           mr="3"
-          bg={'red.500'}
+          bg={'purple.500'}
         >
           <Box fontSize="2xl" color="white" userSelect="none">
             T
           </Box>
         </Flex>
-        <Box>
-          <Link href="#" color="blue.500">
-            <Heading size="md" mb="1">
-              {category.name}
-            </Heading>
+        <Box w="100%">
+          <Link
+            as={RouteLink}
+            to={`/category/${category._id}`}
+            color="blue.500"
+            fontSize="xl"
+            fontWeight="bold"
+          >
+            {category.name}
           </Link>
-          <Text color="gray.600" fontSize="sm" w="70%">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-            reiciendis in velit repudiandae beatae dolor quas optio labore quod
-            fugit.
+          <Text color="gray.600" fontSize="sm" w="50%">
+            En beskrivning för den här kategorin
           </Text>
         </Box>
         <Spacer />
