@@ -23,7 +23,7 @@ const mockThreads = [
     __v: 0,
   },
 ];
-export default function ThreadsList() {
+export default function CategoryThreads() {
   const [threads, setThreads] = useState([]);
   const { categoryId } = useParams();
   useEffect(() => {

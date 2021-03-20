@@ -2,7 +2,7 @@ import { Button } from '@chakra-ui/button';
 import { Box, Container, Heading, VStack } from '@chakra-ui/layout';
 import { Textarea } from '@chakra-ui/textarea';
 import React, { useState } from 'react';
-import Comment from '../components/threads/Comment';
+import Comment from './Comment';
 
 const initComments = [
   {
@@ -27,6 +27,12 @@ export default function Thread() {
     setComments([...comments, newComment]);
     setComment('');
   }
+
+  function submitForm(e) {
+    if (e.ctrlKey && e.key === 'Enter') {
+      addComment(e);
+    }
+  }
   return (
     <VStack>
       <Heading>Is this the greatest thread ever?</Heading>
@@ -37,11 +43,13 @@ export default function Thread() {
         <form onSubmit={addComment}>
           <Textarea
             onChange={e => setComment(e.target.value)}
+            onKeyDown={submitForm}
             value={comment}
             placeholder="Skriv din kommentar här"
             rows="5"
+            bg="white"
           />
-          <Button variant="outline" type="submit">
+          <Button colorScheme="linkedin" type="submit">
             Skicka
           </Button>
         </form>

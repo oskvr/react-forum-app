@@ -2,14 +2,14 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import { Link as RouteLink, useParams } from 'react-router-dom';
 
-export default function Breadcrumbs() {
+export default function Breadcrumbs({ ...props }) {
   const { categoryId, threadId } = useParams();
 
   useEffect(() => {
     console.log(categoryId);
   });
   return (
-    <Breadcrumb>
+    <Breadcrumb {...props}>
       <BreadcrumbItem>
         <BreadcrumbLink as={RouteLink} to="/">
           Home

@@ -52,7 +52,7 @@ const categories = [
   },
 ];
 
-export default function CategoryList() {
+export default function Categories() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {

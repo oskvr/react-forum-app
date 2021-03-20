@@ -1,14 +1,44 @@
 [
   {
     "threads": ["60538f7dfc9cd8001eef9404"],
-    "_id": "60538ee3fc9cd8001eef9402",
-    "name": "Testkategori",
+    "_id": "2901489012840124",
+    "name": "Hjälp",
     "__v": 1
   },
   {
     "threads": ["60538f7dfc9cd8001eef9404"],
     "_id": "2901489012840124",
-    "name": "Hjälp",
+    "name": "Generella diskussioner",
+    "__v": 1
+  },
+  {
+    "threads": ["60538f7dfc9cd8001eef9404"],
+    "_id": "60538ee3fc9cd8001eef9402",
+    "name": "Bilar",
+    "__v": 1
+  },
+  {
+    "threads": ["60538f7dfc9cd8001eef9404"],
+    "_id": "2901489012840124",
+    "name": "Djur",
+    "__v": 1
+  },
+  {
+    "threads": ["60538f7dfc9cd8001eef9404"],
+    "_id": "60538ee3fc9cd8001eef9402",
+    "name": "Sport",
+    "__v": 1
+  },
+  {
+    "threads": ["60538f7dfc9cd8001eef9404"],
+    "_id": "2901489012840124",
+    "name": "Ekonomi",
+    "__v": 1
+  },
+  {
+    "threads": ["60538f7dfc9cd8001eef9404"],
+    "_id": "60538ee3fc9cd8001eef9402",
+    "name": "Testkategori",
     "__v": 1
   }
 ]

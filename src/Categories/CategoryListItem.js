@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import { Link as RouteLink } from 'react-router-dom';
 export default function CategoryListItem({ category }) {
+  const bgColor = 'orange.500';
   return (
     <Box my="5">
       <HStack>
@@ -22,10 +23,10 @@ export default function CategoryListItem({ category }) {
           h="14"
           p="4"
           mr="3"
-          bg={'purple.500'}
+          bg={bgColor}
         >
           <Box fontSize="2xl" color="white" userSelect="none">
-            T
+            {category.name.substring(0, 1).toUpperCase()}
           </Box>
         </Flex>
         <Box w="100%">
@@ -52,7 +53,7 @@ export default function CategoryListItem({ category }) {
               {category.threads.length === 1 ? 'Tråd' : 'Trådar'}
             </Text>
           </VStack>
-          <Box h="14" w="1" bg="red.500"></Box>
+          <Box h="14" w="1" bg={bgColor}></Box>
         </HStack>
       </HStack>
     </Box>
