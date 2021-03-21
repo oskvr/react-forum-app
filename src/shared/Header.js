@@ -21,7 +21,7 @@ export default function Header() {
             </Text>
           </Link>
           <Text as="small" color="gray.500">
-            En community för coola katter sedan 1999
+            En community för coola katter
           </Text>
         </Box>
         <Spacer />

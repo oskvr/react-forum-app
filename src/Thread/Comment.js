@@ -47,10 +47,19 @@ export default function Comment({ comment }) {
       });
   }
   return (
-    <Box p="8" borderBottom="1px solid silver" w="100%" bg="white">
+    <Box p="8" w="100%" bg="white">
       <HStack>
-        <Box mr="10">
-          <Image src="https://placekitten.com/g/80/80" rounded="full" />
+        <Box mr="10" w="20">
+          <Image
+            src={
+              comment.title
+                ? 'https://placekitten.com/110/110'
+                : 'https://via.placeholder.com/100'
+            }
+            w="14"
+            h="14"
+            rounded="full"
+          />
           <Text>{comment.title || 'Anonym'}</Text>
         </Box>
         <VStack align="start" spacing="5" flex="1">

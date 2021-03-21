@@ -3,6 +3,7 @@ import {
   Flex,
   HStack,
   Link,
+  ListItem,
   Spacer,
   Text,
   VStack,
@@ -12,7 +13,7 @@ import { Link as RouteLink } from 'react-router-dom';
 export default function CategoryListItem({ category }) {
   const bgColor = 'orange.500';
   return (
-    <Box my="5">
+    <ListItem my="5">
       <HStack>
         <Flex
           align="center"
@@ -39,7 +40,7 @@ export default function CategoryListItem({ category }) {
           >
             {category.name}
           </Link>
-          <Text color="gray.600" fontSize="sm" w="50%">
+          <Text opacity="0.7" fontSize="sm" w="50%">
             En beskrivning för den här kategorin
           </Text>
         </Box>
@@ -56,6 +57,6 @@ export default function CategoryListItem({ category }) {
           <Box h="14" w="1" bg={bgColor}></Box>
         </HStack>
       </HStack>
-    </Box>
+    </ListItem>
   );
 }

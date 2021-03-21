@@ -38,7 +38,7 @@ export default function CreateThreadModal({ isOpen, onClose }) {
       .then(response => response.json())
       .then(thread => {
         setIsLoading(false);
-        setRedirectUrl(`/thread/${thread._id}`);
+        setRedirectUrl(`/category/${categoryId}/thread/${thread._id}`);
         setShouldRedirect(true);
       })
       .catch(error => {

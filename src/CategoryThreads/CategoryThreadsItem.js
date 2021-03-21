@@ -1,40 +1,44 @@
-import { Box, Flex, HStack, Link, Spacer, Text } from '@chakra-ui/react';
+import { Box, HStack, Link, Spacer, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { FaCommentAlt, FaThumbsUp } from 'react-icons/fa';
-import { Link as RouteLink } from 'react-router-dom';
+import { IoMdChatbubbles } from 'react-icons/io';
+import { Link as RouteLink, useParams } from 'react-router-dom';
+import { getFormattedDate } from '../utils/getFormattedDate';
 
 export default function CategoryThreadsItem({ thread }) {
+  const date = getFormattedDate(thread.createdAt);
+  const { categoryId } = useParams();
+
   return (
     <HStack>
-      <Flex
-        align="center"
-        justify="center"
+      <Box
+        alignSelf="start"
         rounded="full"
-        shrink="0"
-        w="14"
-        h="14"
-        p="4"
+        bg="blue.500"
+        p="3"
+        fontSize="4xl"
+        color="white"
         mr="3"
-        bg={'blue.500'}
       >
-        <Box fontSize="2xl" color="white" userSelect="none">
-          T
-        </Box>
-      </Flex>
-      <Box w="100%">
+        <IoMdChatbubbles />
+      </Box>
+      <VStack align="start" spacing="2" maxW="70%">
         <Link
           as={RouteLink}
-          to={`/thread/${thread._id}`}
+          to={`/category/${categoryId}/thread/${thread._id}`}
           color="blue.500"
           fontSize="xl"
           fontWeight="bold"
         >
           {thread.title}
         </Link>
-        <Text color="gray.600" fontSize="sm" w="50%">
-          {new Date(thread.createdAt).toDateString()}
+        <Text noOfLines={2} opacity="0.7">
+          {thread.content}
         </Text>
-      </Box>
+        <Text fontSize="sm" opacity="0.9">
+          Skapad: {date}
+        </Text>
+      </VStack>
       <Spacer />
       <HStack spacing="5">
         <HStack>
