@@ -6,7 +6,7 @@ import {
   Spacer,
   Text,
   VStack,
-} from '@chakra-ui/layout';
+} from '@chakra-ui/react';
 import React from 'react';
 import { Link as RouteLink } from 'react-router-dom';
 export default function CategoryListItem({ category }) {

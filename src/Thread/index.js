@@ -1,59 +1,109 @@
-import { Button } from '@chakra-ui/button';
-import { Box, Container, Heading, VStack } from '@chakra-ui/layout';
-import { Textarea } from '@chakra-ui/textarea';
-import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  Heading,
+  Input,
+  Spinner,
+  Textarea,
+  VStack,
+} from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import Comment from './Comment';
 
-const initComments = [
-  {
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus nulla exercitationem rerum fugiat nesciunt officiis unde perferendis et beatae minima dolor error ratione dolores deleniti a, suscipit cum. Esse rerum placeat quod ipsum reprehenderit asperiores quas assumenda quos, doloremque, soluta ipsa dicta obcaecati nobis facere distinctio praesentium sit aperiam incidunt.',
-  },
-  {
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus nulla exercitationem rerum fugiat nesciunt officiis unde perferendis et beatae minima dolor error ratione dolores deleniti a, suscipit cum. Esse rerum placeat quod ipsum reprehenderit asperiores quas assumenda quos, doloremque, soluta ipsa dicta obcaecati nobis facere distinctio praesentium sit aperiam incidunt.',
-  },
-  {
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus nulla exercitationem rerum fugiat nesciunt officiis unde perferendis et beatae minima dolor error ratione dolores deleniti a, suscipit cum. Esse rerum placeat quod ipsum reprehenderit asperiores quas assumenda quos, doloremque, soluta ipsa dicta obcaecati nobis facere distinctio praesentium sit aperiam incidunt.',
-  },
-];
 export default function Thread() {
-  const [comments, setComments] = useState(initComments);
+  const { threadId } = useParams();
+  const [comments, setComments] = useState([]);
   const [comment, setComment] = useState('');
-  function addComment(e) {
+  const [name, setName] = useState('');
+  const [isLoadingFormSubmit, setIsLoadingFormSubmit] = useState(false);
+  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+  useEffect(() => {
+    fetch(
+      `https://forum-api-jkrop.ondigitalocean.app/thread/${threadId}/comment`
+    )
+      .then(res => res.json())
+      .then(data => {
+        setComments(data);
+        setIsLoadingPosts(false);
+      });
+  }, [threadId]);
+  function postComment(e) {
     e.preventDefault();
-    const newComment = { content: comment };
-    setComments([...comments, newComment]);
-    setComment('');
+    if (!comment) return;
+    const newComment = {
+      title: name,
+      content: comment,
+    };
+    setIsLoadingFormSubmit(true);
+    fetch(
+      `https://forum-api-jkrop.ondigitalocean.app/thread/${threadId}/comment`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newComment),
+      }
+    )
+      .then(response => response.json())
+      .then(comment => {
+        setIsLoadingFormSubmit(false);
+        setComments([...comments, comment]);
+        setComment('');
+        setName('');
+      })
+      .catch(error => {
+        setIsLoadingFormSubmit(false);
+        console.error('Error:', error);
+      });
   }
-
   function submitForm(e) {
     if (e.ctrlKey && e.key === 'Enter') {
-      addComment(e);
+      postComment(e);
     }
   }
   return (
-    <VStack>
-      <Heading>Is this the greatest thread ever?</Heading>
+    <Box>
+      <Heading fontWeight="medium">Hejsan</Heading>
+      <VStack
+        h="50vh"
+        alignItems="center"
+        justify="center"
+        hidden={!isLoadingPosts}
+      >
+        <Spinner hidden={!isLoadingPosts} />
+      </VStack>
       {comments.map(comment => (
-        <Comment content={comment.content} />
+        <Comment key={comment._id} comment={comment} />
       ))}
-      <Box w="100%">
-        <form onSubmit={addComment}>
-          <Textarea
-            onChange={e => setComment(e.target.value)}
-            onKeyDown={submitForm}
-            value={comment}
-            placeholder="Skriv din kommentar här"
-            rows="5"
-            bg="white"
-          />
-          <Button colorScheme="linkedin" type="submit">
-            Skicka
-          </Button>
+      <Box w="70%" my="10">
+        <form onSubmit={postComment}>
+          <VStack align="start">
+            <Textarea
+              onChange={e => setComment(e.target.value)}
+              onKeyDown={submitForm}
+              value={comment}
+              isRequired
+              placeholder="Skriv din kommentar här"
+              rows="5"
+              bg="white"
+            />
+            <Input
+              onChange={e => setName(e.target.value)}
+              value={name}
+              placeholder="Namn (frivilligt)"
+            />
+            <Button
+              isLoading={isLoadingFormSubmit}
+              colorScheme="linkedin"
+              type="submit"
+            >
+              Skicka
+            </Button>
+          </VStack>
         </form>
       </Box>
-    </VStack>
+    </Box>
   );
 }

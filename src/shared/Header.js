@@ -7,14 +7,21 @@ export default function Header() {
     <Box as="nav" shadow="sm">
       <HStack p="3" maxW="container.lg" mx="auto">
         <Box>
-          <Link as={RouteLink} to="/" d="flex" alignItems="center">
+          <Link
+            as={RouteLink}
+            _focus={{ boxShadow: 'none' }}
+            _hover={{ textDecoration: 'none' }}
+            to="/"
+            d="flex"
+            alignItems="center"
+          >
             <IoLogoOctocat style={{ fontSize: '2rem' }} />
             <Text as="span" fontWeight="thin" fontSize="2xl" ml="2">
               Coolkatt
             </Text>
           </Link>
           <Text as="small" color="gray.500">
-            En community för coola katter sedan 2021
+            En community för coola katter sedan 1999
           </Text>
         </Box>
         <Spacer />

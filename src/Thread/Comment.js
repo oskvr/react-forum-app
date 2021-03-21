@@ -1,47 +1,71 @@
 import { Button } from '@chakra-ui/button';
 import { Image } from '@chakra-ui/image';
 import { Box, HStack, Text, VStack } from '@chakra-ui/layout';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FaChevronUp } from 'react-icons/fa';
-import useFetch from '../utils/hooks/useFetch';
-export default function Comment({ content }) {
-  const [likes, setLikes] = useState(0);
-  const [hasLiked, setHasLiked] = useState(false);
-
-  useEffect(() => {
-    const random = Math.floor(Math.random() * 50);
-    setLikes(random);
-  }, []);
+export default function Comment({ comment }) {
+  const [likes, setLikes] = useState(comment.likes);
+  function getDateString() {
+    const commentDate = new Date(comment.createdAt);
+    const today = new Date();
+    if (commentDate.getDate() === today.getDate()) {
+      return `Idag, ${commentDate.toLocaleString('sv-SE', {
+        hour: '2-digit',
+        minute: '2-digit',
+      })}`;
+    } else if (commentDate.getDate() === today.getDate() - 1) {
+      return `Igår, ${commentDate.toLocaleString('sv-SE', {
+        hour: '2-digit',
+        minute: '2-digit',
+      })}`;
+    } else {
+      return commentDate.toLocaleString('sv-SE', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    }
+  }
+  function addLike() {
+    fetch(
+      `https://forum-api-jkrop.ondigitalocean.app/comment/${comment._id}/like`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+      .then(response => response.json())
+      .then(data => {
+        setLikes([...likes, data]);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
   return (
     <Box p="8" borderBottom="1px solid silver" w="100%" bg="white">
       <HStack>
         <Box mr="10">
           <Image src="https://placekitten.com/g/80/80" rounded="full" />
-          <Text>coolkatt_123</Text>
+          <Text>{comment.title || 'Anonym'}</Text>
         </Box>
         <VStack align="start" spacing="5" flex="1">
-          <Text whiteSpace="pre-wrap">{content}</Text>
-          <Text as="small">{new Date().toDateString()}</Text>
+          <Text whiteSpace="pre-wrap">{comment.content}</Text>
+          <Text as="small">{getDateString()}</Text>
         </VStack>
         <VStack flexShrink="0" spacing="1">
-          {hasLiked ? (
-            <Button variant="ghost" color="gray.300">
-              <FaChevronUp />
-            </Button>
-          ) : (
-            <Button
-              variant="ghost"
-              _focus={{ boxShadow: 'none' }}
-              onClick={() => {
-                setLikes(likes + 1);
-                setHasLiked(true);
-              }}
-            >
-              <FaChevronUp />
-            </Button>
-          )}
-
-          <Text as="span">{likes}</Text>
+          <Button
+            variant="ghost"
+            _focus={{ boxShadow: 'none' }}
+            onClick={addLike}
+          >
+            <FaChevronUp />
+          </Button>
+          <Text as="span">{likes.length}</Text>
         </VStack>
       </HStack>
     </Box>

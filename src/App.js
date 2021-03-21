@@ -1,18 +1,20 @@
-import { Box, ChakraProvider, theme } from '@chakra-ui/react';
+import { Box, ChakraProvider, Progress, theme } from '@chakra-ui/react';
 import React from 'react';
 import {} from 'react-icons/ai';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Categories from './Categories';
+import CategoryThreads from './CategoryThreads';
 import Breadcrumbs from './shared/Breadcrumbs';
 import Header from './shared/Header';
 import Thread from './Thread';
-import CategoryThreads from './CategoryThreads';
+
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Router>
         <Box>
           <Header />
+          <Progress isIndeterminate hidden={true} size="xs" />
           <Box
             as="main"
             mx="auto"
