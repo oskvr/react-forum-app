@@ -1,25 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+export const fetchCategories = createAsyncThunk(
+  'categories/fetchCategories',
+  async () => {
+    const response = await fetch(
+      'https://forum-api-jkrop.ondigitalocean.app/sandbox/TestAPI/category'
+    );
+    const data = await response.json();
+    return data;
+  }
+);
 export const categoriesSlice = createSlice({
   name: 'categories',
   initialState: {
     categories: [],
   },
-  reducers: {
-    loadCategories: (state, categories) => {
-      state.categories = categories.payload;
-    },
-    addPost: (state, post) => {
-      state.posts.push(post.payload);
-      state.lastPostId++;
-    },
-    removePost: (state, id) => {
-      state.posts = state.posts.filter(post => post.id !== id.payload);
+  reducers: {},
+  extraReducers: {
+    [fetchCategories.fulfilled]: (state, action) => {
+      state.categories = action.payload;
     },
   },
 });
-
-// Action creators are generated for each case reducer function
-export const { loadCategories } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

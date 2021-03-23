@@ -42,10 +42,14 @@ export default function Thread() {
     )
       .then(res => res.json())
       .then(data => {
-        setComments(data.sort(a => a.likes.length));
+        const sorted = sortByLikeCountDesc(data);
+        setComments(sorted);
         setIsLoadingPosts(false);
       });
   }, [threadId]);
+  function sortByLikeCountDesc(data) {
+    return data.sort((a, b) => b.likes.length - a.likes.length);
+  }
   function postComment(e) {
     e.preventDefault();
     if (!comment) return;

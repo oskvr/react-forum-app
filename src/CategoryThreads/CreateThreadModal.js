@@ -8,19 +8,23 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Text,
   Textarea,
+  useDisclosure,
   VStack,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { FaPen } from 'react-icons/fa';
 import { Redirect, useParams } from 'react-router';
 
-export default function CreateThreadModal({ isOpen, onClose }) {
+export default function CreateThreadModal() {
   const { categoryId } = useParams();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [redirectUrl, setRedirectUrl] = useState('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -48,6 +52,12 @@ export default function CreateThreadModal({ isOpen, onClose }) {
   }
   return (
     <>
+      <Button onClick={onOpen} variant="outline" size="sm">
+        <Text as="span" mr="2">
+          <FaPen />
+        </Text>
+        Ny tråd
+      </Button>
       {shouldRedirect && <Redirect push to={redirectUrl} />}
       <Modal isOpen={isOpen} onClose={onClose} size="2xl" autoFocus={false}>
         <ModalOverlay />
