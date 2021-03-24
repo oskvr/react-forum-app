@@ -1,4 +1,4 @@
-import { List, Text } from '@chakra-ui/react';
+import { List } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../redux/categories';
@@ -14,7 +14,7 @@ export default function Categories() {
   // if (!categories.length) return null;
   return (
     <List>
-      {categories.map(category => (
+      {categories?.map(category => (
         <CategoryListItem key={category._id} category={category} />
       ))}
     </List>

@@ -1,4 +1,5 @@
 export function getFormattedDate(date) {
+  if (!date) return;
   const commentDate = new Date(date);
   const today = new Date();
   if (commentDate.getDate() === today.getDate()) {
