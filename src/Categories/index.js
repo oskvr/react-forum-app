@@ -1,17 +1,11 @@
 import { List } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../redux/categories';
+import React from 'react';
+import { useCategories } from '../hooks/useCategories';
 import CategoryListItem from './CategoryListItem';
 
 export default function Categories() {
-  const dispatch = useDispatch();
-  const { categories } = useSelector(state => state.categories);
+  const { categories } = useCategories();
 
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
-  // if (!categories.length) return null;
   return (
     <List>
       {categories?.map(category => (

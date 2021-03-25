@@ -1,37 +1,41 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Link as RouteLink, useParams, useLocation } from 'react-router-dom';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Text,
+} from '@chakra-ui/react';
+import React from 'react';
+import { Link as RouteLink, useParams } from 'react-router-dom';
+import { useCategories } from '../hooks/useCategories';
+import { useThread } from '../hooks/useThread';
 
 export default function Breadcrumbs({ ...props }) {
-  const { categoryId, threadId } = useParams();
-  const location = useLocation();
-  const { thread, categoryThreads } = useSelector(state => state.threads);
-  const threadTitle = thread.data?.title;
-  const categoryTitle = categoryThreads.data.length > 0 && 'Kategorinamn';
-  const breadcrumbs = [
-    { title: 'Hem', to: '/' },
-    { title: categoryTitle, to: `/category/${categoryId}` },
-    {
-      title: threadTitle,
-      to: `/category/${categoryId}/thread/${threadId}`,
-    },
+  const { categoryId } = useParams();
+  const { post } = useThread();
+  const { categories } = useCategories();
+  const currentCategory =
+    categories.find(category => category._id === categoryId) ?? {};
+  const paths = [
+    { text: 'Hem', to: '/' },
+    { text: currentCategory.name, to: `/category/${categoryId}` },
+    { text: post.title, to: '' },
   ];
 
-  useEffect(() => {
-    console.log(location);
-  });
+  const currentPaths = paths.filter(path => path.text);
+
   return (
     <Breadcrumb {...props}>
-      {breadcrumbs
-        .filter(b => b.title)
-        .map(breadcrumb => (
-          <BreadcrumbItem>
-            <BreadcrumbLink as={RouteLink} to={breadcrumb.to}>
-              {breadcrumb.title}
+      {currentPaths.map((breadcrumb, index) => (
+        <BreadcrumbItem>
+          {index === currentPaths.length - 1 ? (
+            <Text>{breadcrumb.text}</Text>
+          ) : (
+            <BreadcrumbLink opacity="0.8" as={RouteLink} to={breadcrumb.to}>
+              {breadcrumb.text}
             </BreadcrumbLink>
-          </BreadcrumbItem>
-        ))}
+          )}
+        </BreadcrumbItem>
+      ))}
     </Breadcrumb>
   );
 }

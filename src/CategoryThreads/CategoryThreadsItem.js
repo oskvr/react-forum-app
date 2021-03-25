@@ -6,7 +6,7 @@ import { Link as RouteLink, useParams } from 'react-router-dom';
 import { getFormattedDate } from '../utils/getFormattedDate';
 
 export default function CategoryThreadsItem({ thread }) {
-  const date = getFormattedDate(thread.createdAt);
+  const dateCreated = getFormattedDate(thread.createdAt);
   const { categoryId } = useParams();
 
   return (
@@ -36,7 +36,7 @@ export default function CategoryThreadsItem({ thread }) {
           {thread.content}
         </Text>
         <Text fontSize="sm" opacity="0.9">
-          Skapad: {date}
+          Skapad: {dateCreated}
         </Text>
       </VStack>
       <Spacer />

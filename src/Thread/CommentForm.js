@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { postNewComment } from '../redux/threads';
-
+import * as API from '../api/apiService';
+import { useThread } from '../hooks/useThread';
 export default function CommentForm(props) {
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
   const { threadId } = useParams();
-  const dispatch = useDispatch();
+  const { mutate } = useThread();
+  // const dispatch = useDispatch();
   const { isLoadingNewComment } = useSelector(state => state.threads);
   function postComment(e) {
     e.preventDefault();
@@ -17,10 +19,15 @@ export default function CommentForm(props) {
       title: author,
       content: content,
     };
-    dispatch(postNewComment({ threadId, comment })).then(() => {
+    API.postComment(threadId, comment).then(() => {
+      mutate();
       setContent('');
       setAuthor('');
     });
+    // dispatch(postNewComment({ threadId, comment })).then(() => {
+    //   setContent('');
+    //   setAuthor('');
+    // });
   }
 
   function submitOnCtrlEnter(e) {
