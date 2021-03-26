@@ -14,8 +14,9 @@ import Breadcrumbs from './shared/Breadcrumbs';
 import { DarkModeSwitch } from './shared/DarkModeSwitch';
 import Header from './shared/Header';
 import Thread from './Thread';
-//TODO: Fixa breadcrumbs. Kan nog använda Redux för att hålla reda på nuvarande kategori och tråd. (DONE ish)
-//TODO: Breadcrumbs gör så att SWR fetchar undefined.
+//TODO: Fixa breadcrumbs. Kan nog använda Redux för att hålla reda på nuvarande kategori och tråd. (FIXED)
+//TODO: Breadcrumbs gör så att SWR fetchar undefined. (FIXED)
+//TODO: Mappa färger till de olika kategorierna och visa färgerna i kategori-ikonerna, samt vid hover över kategorierna i headern
 //TODO: Fixa så att ett ogiltigt id i URL:en genererar en felsida
 //TODO: KANSKE - sorteringsfunktion på kommentarer och trådar
 //TODO: KANSKE - 'cards' på förstasidan (över kategorierna) som visar typ "antal skapade kommentarer/trådar idag"

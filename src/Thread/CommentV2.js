@@ -1,6 +1,7 @@
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { Box, Stack, Text } from '@chakra-ui/layout';
 import React, { useState } from 'react';
+import URL from '../api/apiEndpointConstants';
 import LetterIcon from '../shared/LetterIcon';
 import UpvoteButton from '../shared/UpvoteButton';
 import { getFormattedDate } from '../utils/getFormattedDate';
@@ -9,18 +10,14 @@ export default function CommentV2({ comment }) {
   const date = getFormattedDate(comment.createdAt);
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   function addLike() {
-    fetch(
-      `https://forum-api-jkrop.ondigitalocean.app/comment/${comment._id}/like`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    fetch(URL.LIKE_COMMENT(comment._id), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
       .then(response => response.json())
-      .then(data => {
-        // setLikes([...likes, data]);
+      .then(() => {
         setLikeCount(likeCount + 1);
       })
       .catch(error => {

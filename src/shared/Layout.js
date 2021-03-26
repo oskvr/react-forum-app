@@ -16,7 +16,7 @@ export default function Layout({ children }) {
         maxW={{ base: 'container.md', lg: 'container.lg' }}
         minH="80vh"
       >
-        {/* <Breadcrumbs my="8" /> */}
+        <Breadcrumbs my="8" />
         {children}
       </Container>
     </>

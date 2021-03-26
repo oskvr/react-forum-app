@@ -5,29 +5,39 @@ import { useParams } from 'react-router';
 import { postNewComment } from '../redux/threads';
 import * as API from '../api/apiService';
 import { useThread } from '../hooks/useThread';
+import URL from '../api/apiEndpointConstants';
 export default function CommentForm(props) {
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
   const { threadId } = useParams();
   const { mutate } = useThread();
-  // const dispatch = useDispatch();
-  const { isLoadingNewComment } = useSelector(state => state.threads);
-  function postComment(e) {
+  const [isLoading, setIsLoading] = useState(false);
+  async function postComment(e) {
     e.preventDefault();
     if (!content) return;
     const comment = {
       title: author,
       content: content,
     };
-    API.postComment(threadId, comment).then(() => {
-      mutate();
-      setContent('');
-      setAuthor('');
-    });
-    // dispatch(postNewComment({ threadId, comment })).then(() => {
+    // API.postComment(threadId, comment).then(() => {
+    //   mutate();
     //   setContent('');
     //   setAuthor('');
     // });
+    // mutate(comments, [...comments, comment], false);
+    setIsLoading(true);
+    const res = await fetch(URL.COMMENT(threadId), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(comment),
+    });
+    const data = await res.json();
+    mutate();
+    setIsLoading(false);
+    setContent('');
+    setAuthor('');
   }
 
   function submitOnCtrlEnter(e) {
@@ -56,11 +66,7 @@ export default function CommentForm(props) {
             placeholder="Kommentar"
             rows="7"
           />
-          <Button
-            isLoading={isLoadingNewComment}
-            colorScheme="blue"
-            type="submit"
-          >
+          <Button isLoading={isLoading} colorScheme="blue" type="submit">
             Skicka
           </Button>
         </Box>

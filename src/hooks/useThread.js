@@ -6,7 +6,10 @@ import { useCategoryThreads } from './useCategoryThreads';
 
 export function useThread() {
   const { threadId } = useParams();
-  const { data, mutate, error } = useSWR(URL.COMMENT(threadId), fetcher);
+  const { data, mutate, error } = useSWR(
+    threadId ? URL.COMMENT(threadId) : null,
+    fetcher
+  );
   const { categoryThreads } = useCategoryThreads();
   const threadPost =
     categoryThreads.find(thread => thread._id === threadId) ?? {};

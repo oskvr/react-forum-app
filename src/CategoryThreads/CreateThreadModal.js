@@ -16,6 +16,7 @@ import {
 import React, { useState } from 'react';
 import { FaPen } from 'react-icons/fa';
 import { Redirect, useParams } from 'react-router';
+import URL from '../api/apiEndpointConstants';
 
 export default function CreateThreadModal() {
   const { categoryId } = useParams();
@@ -29,16 +30,13 @@ export default function CreateThreadModal() {
     e.preventDefault();
 
     setIsLoading(true);
-    fetch(
-      `https://forum-api-jkrop.ondigitalocean.app/category/${categoryId}/thread`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title, content }),
-      }
-    )
+    fetch(URL.THREADS(categoryId), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, content }),
+    })
       .then(response => response.json())
       .then(thread => {
         setIsLoading(false);

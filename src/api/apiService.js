@@ -11,19 +11,14 @@ export async function postComment(threadId, comment) {
   const data = await res.json();
   return data;
 }
-//   export const postThreadLike = createAsyncThunk(
-//     'threads/postThreadLike',
-//     async threadId => {
-//       const res = await fetch(
-//         `https://forum-api-jkrop.ondigitalocean.app/thread/${threadId}/like`,
-//         {
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/json',
-//           },
-//         }
-//       );
-//       const data = await res.json();
-//       return data;
-//     }
-//   );
+
+export async function postThreadLike(threadId) {
+  const res = await fetch(URL.LIKE_THREAD(threadId), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await res.json();
+  return data;
+}
