@@ -14,7 +14,7 @@ import Breadcrumbs from './shared/Breadcrumbs';
 import { DarkModeSwitch } from './shared/DarkModeSwitch';
 import Header from './shared/Header';
 import Thread from './Thread';
-//TODO: Fixa breadcrumbs. Kan nog använda Redux för att hålla reda på nuvarande kategori och tråd.
+//TODO: Fixa breadcrumbs. Kan nog använda Redux för att hålla reda på nuvarande kategori och tråd. (DONE ish)
 //TODO: Breadcrumbs gör så att SWR fetchar undefined.
 //TODO: Fixa så att ett ogiltigt id i URL:en genererar en felsida
 //TODO: KANSKE - sorteringsfunktion på kommentarer och trådar
@@ -46,5 +46,4 @@ function App() {
     </ChakraProvider>
   );
 }
-
 export default App;
