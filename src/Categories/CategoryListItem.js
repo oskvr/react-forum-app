@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Flex,
   HStack,
@@ -9,13 +10,14 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
+import { IoIosContacts } from 'react-icons/io';
 import { Link as RouteLink } from 'react-router-dom';
 export default function CategoryListItem({ category }) {
   const bgColor = 'orange.500';
   return (
     <ListItem my="5">
       <HStack>
-        <Flex
+        {/* <Flex
           align="center"
           justify="center"
           rounded="full"
@@ -29,7 +31,8 @@ export default function CategoryListItem({ category }) {
           <Box fontSize="2xl" color="white" userSelect="none">
             {category.name.substring(0, 1).toUpperCase()}
           </Box>
-        </Flex>
+        </Flex> */}
+        <Avatar bg="blue.500" color="white" icon={<IoIosContacts />} />
         <Box w="100%">
           <Link
             as={RouteLink}

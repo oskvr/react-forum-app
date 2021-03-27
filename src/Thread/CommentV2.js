@@ -1,3 +1,4 @@
+import { Avatar } from '@chakra-ui/avatar';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { Box, Stack, Text } from '@chakra-ui/layout';
 import React, { useState } from 'react';
@@ -29,7 +30,8 @@ export default function CommentV2({ comment }) {
     <Box w="100%" p="1">
       <Box d="flex" position="relative">
         <Box position="absolute" top="0" left="0" mr="4">
-          <LetterIcon text={comment.title} />
+          <Avatar name={comment.title} />
+          {/* <LetterIcon text={comment.title} /> */}
         </Box>
         <Box
           ml="6"

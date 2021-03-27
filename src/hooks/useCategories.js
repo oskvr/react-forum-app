@@ -1,14 +1,8 @@
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import URL from '../api/apiEndpointConstants';
+import fetcher from '../utils/fetcher';
 
 export function useCategories() {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    console.log('fetching categories');
-    fetch(URL.CATEGORIES)
-      .then(res => res.json())
-      .then(data => setCategories(data));
-  }, []);
-
-  return { categories };
+  const { data } = useSWR(URL.CATEGORIES, fetcher);
+  return { categories: data ?? [] };
 }

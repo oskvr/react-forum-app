@@ -1,50 +1,41 @@
-import {
-  Box,
-  ChakraProvider,
-  Container,
-  Progress,
-  theme,
-} from '@chakra-ui/react';
+import { ChakraProvider, theme } from '@chakra-ui/react';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Categories from './Categories';
 import CategoryThreads from './CategoryThreads';
 import Layout from './shared/Layout';
-import Breadcrumbs from './shared/Breadcrumbs';
-import { DarkModeSwitch } from './shared/DarkModeSwitch';
-import Header from './shared/Header';
 import Thread from './Thread';
-//TODO: Fixa breadcrumbs. Kan nog använda Redux för att hålla reda på nuvarande kategori och tråd. (FIXED)
-//TODO: Breadcrumbs gör så att SWR fetchar undefined. (FIXED)
-//TODO: Mappa färger till de olika kategorierna och visa färgerna i kategori-ikonerna, samt vid hover över kategorierna i headern
-//TODO: Fixa så att ett ogiltigt id i URL:en genererar en felsida
-//TODO: KANSKE - sorteringsfunktion på kommentarer och trådar
-//TODO: KANSKE - 'cards' på förstasidan (över kategorierna) som visar typ "antal skapade kommentarer/trådar idag"
-//TODO: KANSKE - "citera"-funktion. Använd redux för att dela den citerade kommentaren mellan de olika komponenterna.
-
+const routes = [
+  { path: '/', component: <Categories /> },
+  { path: '/category/:categoryId', component: <CategoryThreads /> },
+  { path: '/category/:categoryId/thread/:threadId', component: <Thread /> },
+];
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Router>
         <Switch>
-          <Route exact path="/">
-            <Layout>
-              <Categories />
-            </Layout>
-          </Route>
-          <Route exact path="/category/:categoryId">
-            <Layout>
-              <CategoryThreads />
-            </Layout>
-          </Route>
-          <Route exact path="/category/:categoryId/thread/:threadId">
-            <Layout>
-              <Thread />
-            </Layout>
-          </Route>
+          {routes.map(route => (
+            <Route exact path={route.path}>
+              <Layout>{route.component}</Layout>
+            </Route>
+          ))}
         </Switch>
       </Router>
     </ChakraProvider>
   );
 }
 export default App;
+
+//TODO: Fixa breadcrumbs. Kan nog använda Redux för att hålla reda på nuvarande kategori och tråd. (FIXED)
+//TODO: Breadcrumbs gör så att SWR fetchar undefined. (FIXED)
+//TODO: Använd <Avatar/> istället för runda ikoner. Mycket bättre: https://chakra-ui.com/docs/media-and-icons/avatar
+//TODO: Mappa färger till de olika kategorierna och visa färgerna i kategori-ikonerna, samt vid hover över kategorierna i headern
+//TODO: Sätt max length för diverse user input. En titel ska inte kunna vara mer än n karaktärer.
+//TODO: Redux kan användas för att hålla koll på sortering
+//TODO: Breadcrumbs ska truncateas vid en viss längd.
+//TODO: Fixa så att ett ogiltigt id i URL:en genererar en felsida
+//TODO: KANSKE - sorteringsfunktion på kommentarer och trådar
+//TODO: KANSKE - 'cards' på förstasidan (över kategorierna) som visar typ "antal skapade kommentarer/trådar idag"
+//TODO: KANSKE - "citera"-funktion. Använd redux för att dela den citerade kommentaren mellan de olika komponenterna.
+//TODO: KaNSKE - pagination i trådar

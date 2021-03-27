@@ -5,7 +5,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouteLink, useParams } from 'react-router-dom';
 import { useCategories } from '../hooks/useCategories';
 import { useThread } from '../hooks/useThread';

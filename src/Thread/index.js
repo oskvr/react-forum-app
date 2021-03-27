@@ -1,8 +1,11 @@
 import {
   Box,
   Divider,
+  Fade,
   Heading,
   HStack,
+  ScaleFade,
+  SlideFade,
   Spacer,
   Spinner,
   Text,
@@ -63,7 +66,9 @@ export default function Thread() {
         <Spinner hidden={!isLoading} />
       </VStack>
       {comments.map(comment => (
-        <CommentV2 key={comment._id} comment={comment} />
+        <ScaleFade in={true} initialScale={0.98}>
+          <CommentV2 key={comment._id} comment={comment} />
+        </ScaleFade>
       ))}
       <CommentForm w="100%" my="10" />
     </Box>

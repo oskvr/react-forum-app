@@ -1,11 +1,20 @@
 import { Box, HStack, Link, Spacer, Text } from '@chakra-ui/layout';
 import { Tab, TabList, Tabs } from '@chakra-ui/tabs';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoLogoOctocat } from 'react-icons/io';
-import { Link as RouteLink } from 'react-router-dom';
+import { Link as RouteLink, useParams } from 'react-router-dom';
 import { useCategories } from '../hooks/useCategories';
 export default function Header() {
   const { categories } = useCategories();
+  const { categoryId } = useParams();
+  const [tabIndex, setTabIndex] = useState(-12);
+
+  useEffect(() => {
+    if (!categoryId) {
+      console.log('Hej');
+      setTabIndex(-12);
+    }
+  }, [categoryId]);
   return (
     <Box as="nav">
       <Box shadow="sm">
@@ -33,7 +42,13 @@ export default function Header() {
       </Box>
       <Box>
         <HStack maxW="container.lg" mx="auto">
-          <Tabs variant="enclosed" spacing="5" size="sm">
+          <Tabs
+            isFitted
+            tabIndex={tabIndex}
+            variant="enclosed"
+            spacing="5"
+            size="sm"
+          >
             <TabList>
               {categories.map(category => (
                 <Tab
