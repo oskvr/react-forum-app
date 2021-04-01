@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Flex,
   HStack,
   Link,
   ListItem,
@@ -10,12 +9,13 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
-import { IoIosContacts } from 'react-icons/io';
+import { IoMdTrash } from 'react-icons/io';
 import { Link as RouteLink } from 'react-router-dom';
-export default function CategoryListItem({ category }) {
-  const bgColor = 'orange.500';
+export default function CategoryListItem({ category, ...props }) {
+  // const { title, description, color } = JSON.parse(category.name);
+  const bgColor = `${category.color}.500`;
   return (
-    <ListItem my="5">
+    <ListItem {...props}>
       <HStack>
         {/* <Flex
           align="center"
@@ -32,7 +32,11 @@ export default function CategoryListItem({ category }) {
             {category.name.substring(0, 1).toUpperCase()}
           </Box>
         </Flex> */}
-        <Avatar bg="blue.500" color="white" icon={<IoIosContacts />} />
+        <Avatar
+          bg={bgColor}
+          color="white"
+          icon={<IoMdTrash style={{ fontSize: '1.5rem' }} />}
+        />
         <Box w="100%">
           <Link
             as={RouteLink}
@@ -41,10 +45,10 @@ export default function CategoryListItem({ category }) {
             fontSize="xl"
             fontWeight="bold"
           >
-            {category.name}
+            {category.title}
           </Link>
           <Text opacity="0.7" fontSize="sm" w="50%">
-            En beskrivning för den här kategorin
+            {category.description}
           </Text>
         </Box>
         <Spacer />

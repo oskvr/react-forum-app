@@ -1,11 +1,11 @@
+import { ChevronRightIcon } from '@chakra-ui/icons';
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   Text,
 } from '@chakra-ui/react';
-import { ChevronRightIcon } from '@chakra-ui/icons';
-import React, { useState } from 'react';
+import React from 'react';
 import { Link as RouteLink, useParams } from 'react-router-dom';
 import { useCategories } from '../hooks/useCategories';
 import { useThread } from '../hooks/useThread';
@@ -13,16 +13,15 @@ import { useThread } from '../hooks/useThread';
 export default function Breadcrumbs({ ...props }) {
   const { categoryId } = useParams();
   const { post } = useThread();
-  const { categories } = useCategories();
-  const currentCategory =
-    categories.find(category => category._id === categoryId) ?? {};
+  const { current, categories } = useCategories();
   const paths = [
     { id: 0, text: 'Hem', to: '/' },
-    { id: 1, text: currentCategory.name, to: `/category/${categoryId}` },
+    { id: 1, text: current.title, to: `/category/${categoryId}` },
     { id: 2, text: post.title, to: '' },
   ];
 
   const currentPaths = paths.filter(path => path.text);
+  const isCurrentPage = index => index === currentPaths.length - 1;
   if (currentPaths.length <= 1) return null;
   return (
     <Breadcrumb
@@ -31,9 +30,14 @@ export default function Breadcrumbs({ ...props }) {
       {...props}
     >
       {currentPaths.map((breadcrumb, index) => (
-        <BreadcrumbItem key={breadcrumb.id}>
-          {index === currentPaths.length - 1 ? (
-            <Text fontWeight="medium">{breadcrumb.text}</Text>
+        <BreadcrumbItem
+          key={breadcrumb.id}
+          isCurrentPage={isCurrentPage(index)}
+        >
+          {isCurrentPage(index) ? (
+            <BreadcrumbLink fontWeight="medium">
+              {breadcrumb.text}
+            </BreadcrumbLink>
           ) : (
             <BreadcrumbLink as={RouteLink} to={breadcrumb.to}>
               {breadcrumb.text}

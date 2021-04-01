@@ -9,7 +9,7 @@ export default function Categories() {
   return (
     <List>
       {categories?.map(category => (
-        <CategoryListItem key={category._id} category={category} />
+        <CategoryListItem key={category._id} category={category} my="8" />
       ))}
     </List>
   );

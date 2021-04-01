@@ -55,6 +55,9 @@ export default function Thread() {
             <Text as="small">{getFormattedDate(post.createdAt)}</Text>
             <Spacer />
             <Text as="small" fontWeight="semibold">
+              {likeCount} gillar
+            </Text>
+            <Text as="small" fontWeight="semibold">
               {comments.length}{' '}
               {comments.length === 1 ? 'kommentar' : 'kommentarer'}
             </Text>

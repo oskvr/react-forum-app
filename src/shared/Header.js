@@ -16,7 +16,7 @@ export default function Header() {
     }
   }, [categoryId]);
   return (
-    <Box as="nav">
+    <Box as="nav" mb="10">
       <Box shadow="sm">
         <HStack p="3" maxW="container.lg" mx="auto">
           <Box>
@@ -42,13 +42,7 @@ export default function Header() {
       </Box>
       <Box>
         <HStack maxW="container.lg" mx="auto">
-          <Tabs
-            isFitted
-            tabIndex={tabIndex}
-            variant="enclosed"
-            spacing="5"
-            size="sm"
-          >
+          <Tabs tabIndex={tabIndex} variant="enclosed" spacing="5" size="sm">
             <TabList>
               {categories.map(category => (
                 <Tab
@@ -56,7 +50,7 @@ export default function Header() {
                   to={`/category/${category._id}`}
                   _focus={{ outline: 'none' }}
                 >
-                  {category.name}
+                  {category.title}
                 </Tab>
               ))}
             </TabList>

@@ -1,4 +1,5 @@
 import { Avatar } from '@chakra-ui/avatar';
+import { Button } from '@chakra-ui/button';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { Box, Stack, Text } from '@chakra-ui/layout';
 import React, { useState } from 'react';
@@ -25,6 +26,8 @@ export default function CommentV2({ comment }) {
         console.error('Error:', error);
       });
   }
+  const exceedsMaximumLines = comment.content.length > 100;
+  const [showMore, setShowMore] = useState(false);
 
   return (
     <Box w="100%" p="1">
@@ -51,7 +54,14 @@ export default function CommentV2({ comment }) {
                 Anonym
               </Text>
             )}
-            <Text whiteSpace="pre-wrap">{comment.content}</Text>
+            <Text whiteSpace="pre-wrap" noOfLines={showMore ? 99999999 : 20}>
+              {comment.content}
+            </Text>
+            {exceedsMaximumLines && (
+              <Button variant="outline" onClick={() => setShowMore(!showMore)}>
+                {showMore ? 'Visa mindre' : 'Visa mer'}
+              </Button>
+            )}
             <Text as="small" opacity="0.8">
               {date}
             </Text>

@@ -27,9 +27,10 @@ function App() {
 }
 export default App;
 
-//TODO: Fixa breadcrumbs. Kan nog använda Redux för att hålla reda på nuvarande kategori och tråd. (FIXED)
-//TODO: Breadcrumbs gör så att SWR fetchar undefined. (FIXED)
-//TODO: Använd <Avatar/> istället för runda ikoner. Mycket bättre: https://chakra-ui.com/docs/media-and-icons/avatar
+// Fixa breadcrumbs. Kan nog använda Redux för att hålla reda på nuvarande kategori och tråd. (FIXED)
+// Breadcrumbs gör så att SWR fetchar undefined. (FIXED)
+// Använd <Avatar/> istället för runda ikoner. Mycket bättre: https://chakra-ui.com/docs/media-and-icons/avatar (FIXED)
+//TODO: https://forums.meteor.com/t/blaze-opencollective-ownership/55449 lite UI-inspo
 //TODO: Mappa färger till de olika kategorierna och visa färgerna i kategori-ikonerna, samt vid hover över kategorierna i headern
 //TODO: Sätt max length för diverse user input. En titel ska inte kunna vara mer än n karaktärer.
 //TODO: Redux kan användas för att hålla koll på sortering
