@@ -4,13 +4,22 @@ import { useColorModeValue } from '@chakra-ui/color-mode';
 import { Box, Stack, Text } from '@chakra-ui/layout';
 import React, { useState } from 'react';
 import URL from '../api/apiEndpointConstants';
-import LetterIcon from '../shared/LetterIcon';
+import useTruncate from '../hooks/useTruncate';
 import UpvoteButton from '../shared/UpvoteButton';
 import { getFormattedDate } from '../utils/getFormattedDate';
 export default function CommentV2({ comment }) {
   const [likeCount, setLikeCount] = useState(comment.likes.length);
   const date = getFormattedDate(comment.createdAt);
   const borderColor = useColorModeValue('gray.200', 'gray.700');
+  const {
+    outputString: commentBody,
+    shouldTruncate,
+    onToggleTruncate,
+    isTruncated,
+  } = useTruncate(comment.content, {
+    maxLength: 1500,
+    ending: '\u2026',
+  });
   function addLike() {
     fetch(URL.LIKE_COMMENT(comment._id), {
       method: 'POST',
@@ -26,8 +35,6 @@ export default function CommentV2({ comment }) {
         console.error('Error:', error);
       });
   }
-  const exceedsMaximumLines = comment.content.length > 100;
-  const [showMore, setShowMore] = useState(false);
 
   return (
     <Box w="100%" p="1">
@@ -54,12 +61,23 @@ export default function CommentV2({ comment }) {
                 Anonym
               </Text>
             )}
-            <Text whiteSpace="pre-wrap" noOfLines={showMore ? 99999999 : 20}>
-              {comment.content}
+            <Text whiteSpace="pre-wrap">
+              {commentBody}{' '}
+              {shouldTruncate && (
+                <Button
+                  variant="link"
+                  _focus={{ outline: 'none' }}
+                  onClick={onToggleTruncate}
+                  ml="1"
+                >
+                  {isTruncated ? 'Visa mer' : 'Visa mindre'}
+                </Button>
+              )}
             </Text>
-            {exceedsMaximumLines && (
-              <Button variant="outline" onClick={() => setShowMore(!showMore)}>
-                {showMore ? 'Visa mindre' : 'Visa mer'}
+            {/* TODO:Välj hur truncate-knappen ska vara, antingen nedan eller ovan */}
+            {shouldTruncate && (
+              <Button variant="outline" onClick={onToggleTruncate}>
+                {isTruncated ? 'Visa mer' : 'Visa mindre'}
               </Button>
             )}
             <Text as="small" opacity="0.8">

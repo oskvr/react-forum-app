@@ -1,27 +1,43 @@
-import { Box, HStack, Link, Spacer, Text, VStack } from '@chakra-ui/react';
+import {
+  Avatar,
+  Box,
+  HStack,
+  Link,
+  Spacer,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import React from 'react';
 import { FaCommentAlt, FaThumbsUp } from 'react-icons/fa';
 import { IoMdChatbubbles } from 'react-icons/io';
 import { Link as RouteLink, useParams } from 'react-router-dom';
+import { useCategories } from '../hooks/useCategories';
 import { getFormattedDate } from '../utils/getFormattedDate';
 
 export default function CategoryThreadsItem({ thread }) {
   const dateCreated = getFormattedDate(thread.createdAt);
   const { categoryId } = useParams();
-
+  const { current } = useCategories();
   return (
     <HStack>
-      <Box
+      {/* <Box
         alignSelf="start"
         rounded="full"
-        bg="blue.500"
+        bg={`${current.color}.500`}
         p="3"
         fontSize="4xl"
         color="white"
         mr="3"
       >
         <IoMdChatbubbles />
-      </Box>
+      </Box> */}
+      <Avatar
+        icon={<IoMdChatbubbles />}
+        bg={`${current.color}.500`}
+        color="white"
+        mr="3"
+        alignSelf="start"
+      />
       <VStack align="start" spacing="2" maxW="70%">
         <Link
           as={RouteLink}
@@ -53,7 +69,7 @@ export default function CategoryThreadsItem({ thread }) {
           </Text>
           <FaThumbsUp />
         </HStack>
-        <Box h="14" w="1" bg="blue.500"></Box>
+        <Box h="14" w="1" bg={`${current.color}.500`}></Box>
       </HStack>
     </HStack>
   );

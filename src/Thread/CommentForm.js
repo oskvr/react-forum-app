@@ -1,17 +1,16 @@
-import { Box, Button, Input, Textarea } from '@chakra-ui/react';
+import { Box, Button, Input, Text, Textarea } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { postNewComment } from '../redux/threads';
-import * as API from '../api/apiService';
-import { useThread } from '../hooks/useThread';
 import URL from '../api/apiEndpointConstants';
+import { useThread } from '../hooks/useThread';
 export default function CommentForm(props) {
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
   const { threadId } = useParams();
   const { mutate } = useThread();
   const [isLoading, setIsLoading] = useState(false);
+  const [characterCount, setCharacterCount] = useState(0);
+  const maxCharacterCount = 5000;
   async function postComment(e) {
     e.preventDefault();
     if (!content) return;
@@ -19,21 +18,15 @@ export default function CommentForm(props) {
       title: author,
       content: content,
     };
-    // API.postComment(threadId, comment).then(() => {
-    //   mutate();
-    //   setContent('');
-    //   setAuthor('');
-    // });
-    // mutate(comments, [...comments, comment], false);
     setIsLoading(true);
-    const res = await fetch(URL.COMMENT(threadId), {
+    await fetch(URL.COMMENT(threadId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(comment),
     });
-    const data = await res.json();
+    // const data = await res.json();
     mutate();
     setIsLoading(false);
     setContent('');
@@ -56,16 +49,32 @@ export default function CommentForm(props) {
             value={author}
             placeholder="Namn (frivilligt)"
           />
-          <Textarea
-            variant="filled"
-            my="3"
-            onChange={e => setContent(e.target.value)}
-            onKeyDown={submitOnCtrlEnter}
-            value={content}
-            isRequired
-            placeholder="Kommentar"
-            rows="7"
-          />
+          <Box pos="relative">
+            <Text
+              fontSize="xs"
+              color="gray.500"
+              pos="absolute"
+              right="2"
+              bottom="0"
+              zIndex="1"
+            >
+              {characterCount}/{maxCharacterCount}
+            </Text>
+            <Textarea
+              maxLength={maxCharacterCount}
+              variant="filled"
+              my="3"
+              onChange={e => {
+                setCharacterCount(e.target.value.length);
+                setContent(e.target.value);
+              }}
+              onKeyDown={submitOnCtrlEnter}
+              value={content}
+              isRequired
+              placeholder="Kommentar"
+              rows="7"
+            />
+          </Box>
           <Button isLoading={isLoading} colorScheme="blue" type="submit">
             Skicka
           </Button>

@@ -35,7 +35,8 @@ export default function CategoryListItem({ category, ...props }) {
         <Avatar
           bg={bgColor}
           color="white"
-          icon={<IoMdTrash style={{ fontSize: '1.5rem' }} />}
+          // icon={<IoMdTrash style={{ fontSize: '1.5rem' }} />}
+          name={category.title}
         />
         <Box w="100%">
           <Link
