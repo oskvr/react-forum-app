@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react';
 import { FaAccusoft } from 'react-icons/fa';
 import { useParams } from 'react-router';
 import useSWR from 'swr';
 import URL from '../api/apiEndpointConstants';
 import fetcher from '../utils/fetcher';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from '../redux/categories';
 const dummyObject = (title, description, color) => {
   return {
     threads: Array(Math.floor(Math.random() * 100)),
@@ -11,7 +14,7 @@ const dummyObject = (title, description, color) => {
     __v: 9,
   };
 };
-const staticTestData = [
+const staticTestData_old = [
   {
     threads: [
       '60538f7dfc9cd8001eef9404',
@@ -44,28 +47,64 @@ const staticTestData = [
     __v: 9,
   },
   dummyObject('Generella diskussioner', 'Diskutera generella saker', 'purple'),
-  dummyObject('Bilar', 'Diskutera generella saker', 'purple'),
+  dummyObject('Bilar', 'Diskutera generella saker', 'gray'),
   dummyObject('Ekonomi', 'Diskutera generella saker', 'orange'),
   dummyObject('Samhälle', 'Diskutera generella saker', 'pink'),
   dummyObject('Kultur', 'Diskutera generella saker', 'cyan'),
 ];
+
 export function useCategories() {
-  // const { data } = useSWR(URL.CATEGORIES, fetcher);
+  // const { data } = useSWR('./mock_categories.json', fetcher);
+  const { data } = useSWR(URL.CATEGORIES, fetcher);
   const { categoryId } = useParams();
-  const parsedData = staticTestData.map(category => {
-    const { title, description, color } = JSON.parse(category.name);
-    const newCategory = {
-      threads: category.threads,
-      _id: category._id,
-      title,
-      description,
-      color,
-      __v: category.__v,
-    };
-    return newCategory;
-  });
+
+  const [parsedData, setParsedData] = useState([]);
+  useEffect(() => {
+    const parsed = data?.map(category => {
+      let newCategory = {};
+      if (category.name === 'Testkategori' || category.name === 'Allmänt') {
+        newCategory = {
+          threads: category.threads,
+          _id: category._id,
+          title: category.name,
+          description: 'Okänd',
+          icon: <FaAccusoft />,
+          color: 'gray',
+          __v: category.__v,
+        };
+      } else {
+        const { title, description, color, icon } = JSON.parse(category.name);
+        newCategory = {
+          threads: category.threads,
+          _id: category._id,
+          title,
+          description,
+          icon,
+          color,
+          __v: category.__v,
+        };
+      }
+      return newCategory;
+    });
+    setParsedData(parsed);
+  }, [data]);
+  // const parsedData = staticTestData_old.map(category => {
+  //   const { title, description, color } = JSON.parse(category.name);
+  //   const newCategory = {
+  //     threads: category.threads,
+  //     _id: category._id,
+  //     title,
+  //     description,
+  //     color,
+  //     __v: category.__v,
+  //   };
+  //   return newCategory;
+  // });
+  // let current = categoryId
+  //   ? parsedData.find(category => category._id === categoryId)
+  //   : {};
   let current = categoryId
-    ? parsedData.find(category => category._id === categoryId)
+    ? parsedData?.find(category => category._id === categoryId)
     : {};
 
   //TODO: if categoryId exists but is not valid it throws an exception now.

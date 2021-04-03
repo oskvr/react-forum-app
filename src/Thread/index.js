@@ -1,11 +1,9 @@
 import {
   Box,
   Divider,
-  Fade,
   Heading,
   HStack,
   ScaleFade,
-  SlideFade,
   Spacer,
   Spinner,
   Text,
@@ -26,6 +24,7 @@ export default function Thread() {
   useEffect(() => {
     setLikeCount(post.likes?.length);
   }, [post]);
+
   async function likeThread() {
     try {
       await fetch(URL.LIKE_THREAD(threadId), {

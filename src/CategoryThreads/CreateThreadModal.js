@@ -74,7 +74,7 @@ export default function CreateThreadModal() {
                 <Textarea
                   onChange={e => setContent(e.target.value)}
                   isRequired
-                  rows="8"
+                  rows="12"
                   placeholder="Text"
                 />
               </VStack>

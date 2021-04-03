@@ -1,48 +1,45 @@
 [
   {
-    "threads": ["60538f7dfc9cd8001eef9404"],
-    "_id": "2901489012840124",
-    "name": "Hjälp",
-    "__v": 1
+    "threads": [
+      "60538f7dfc9cd8001eef9404",
+      "6056944cfc9cd8001eef945c",
+      "60569e17fc9cd8001eef9463",
+      "6057b852fc9cd8001eefa87a",
+      "6057b9eefc9cd8001eefa87b",
+      "605a88b0fc9cd8001eefa91c",
+      "605d1b98fc9cd8001eefa9b9",
+      "605f1d14fc9cd8001eefaa17"
+    ],
+    "_id": "60538ee3fc9cd8001eef9402",
+    "name": "Testkategori",
+    "__v": 8
   },
   {
     "threads": [
-      "60538fafcd8001eef2804",
-      "651258fafcd8001eef9404",
-      "60538fafcd8001esf404"
+      "6056959dfc9cd8001eef945d",
+      "60569a4afc9cd8001eef945f",
+      "60569adffc9cd8001eef9460",
+      "60569b10fc9cd8001eef9461",
+      "60569b7ffc9cd8001eef9462",
+      "60579ba3fc9cd8001eef9494",
+      "6058c152fc9cd8001eefa8cf",
+      "60597d3afc9cd8001eefa8d9",
+      "605dedf0fc9cd8001eefa9f4"
     ],
-    "_id": "2901489012840124",
-    "name": "Generella diskussioner",
+    "_id": "60567f98fc9cd8001eef9448",
+    "name": "Allmänt",
+    "__v": 9
+  },
+  {
+    "threads": ["6067b000282ecd001e7dcb2c"],
+    "_id": "6067afb1282ecd001e7dcb2b",
+    "name": "{\"title\":\"Film & TV\", \"description\": \"Ett ställe att diskutera det senaste inom film & TV\", \"color\": \"purple\"}",
     "__v": 1
   },
   {
-    "threads": ["60538124c9cd8001eef9404"],
-    "_id": "60538ee3fc9cd8001eef9402",
-    "name": "Bilar",
-    "__v": 1
-  },
-  {
-    "threads": ["60538f7gf8001eef9404"],
-    "_id": "2901489012840124",
-    "name": "Djur",
-    "__v": 1
-  },
-  {
-    "threads": ["60532fc9cd8001eef9404"],
-    "_id": "60538ee3fc9cd8001eef9402",
-    "name": "Sport",
-    "__v": 1
-  },
-  {
-    "threads": ["60538f7521eef9404"],
-    "_id": "2901489012840124",
-    "name": "Ekonomi",
-    "__v": 1
-  },
-  {
-    "threads": ["60538f124c9cd8001eef9404"],
-    "_id": "60538ee3fc9cd8001eef9402",
-    "name": "Testkategori",
+    "threads": ["6067b000282ecd001e7dcb2c"],
+    "_id": "6067afb1282ecd001e7dcb2b",
+    "name": "{\"title\":\"Bilar\", \"description\": \"Diskutera bilar osv\", \"color\": \"blue\"}",
     "__v": 1
   }
 ]

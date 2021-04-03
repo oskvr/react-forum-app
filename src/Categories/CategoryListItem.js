@@ -1,3 +1,4 @@
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Avatar,
   Box,
@@ -9,7 +10,8 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
-import { IoMdTrash } from 'react-icons/io';
+import { FaAccusoft } from 'react-icons/fa';
+import { IoMdMenu, IoMdTrash } from 'react-icons/io';
 import { Link as RouteLink } from 'react-router-dom';
 export default function CategoryListItem({ category, ...props }) {
   // const { title, description, color } = JSON.parse(category.name);
@@ -35,8 +37,8 @@ export default function CategoryListItem({ category, ...props }) {
         <Avatar
           bg={bgColor}
           color="white"
-          // icon={<IoMdTrash style={{ fontSize: '1.5rem' }} />}
-          name={category.title}
+          // name={category.title}
+          icon={<IoMdMenu />}
         />
         <Box w="100%">
           <Link

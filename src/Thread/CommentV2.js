@@ -1,15 +1,17 @@
 import { Avatar } from '@chakra-ui/avatar';
 import { Button } from '@chakra-ui/button';
 import { useColorModeValue } from '@chakra-ui/color-mode';
-import { Box, Stack, Text } from '@chakra-ui/layout';
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { Box, HStack, Stack, Text } from '@chakra-ui/layout';
 import React, { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
 import URL from '../api/apiEndpointConstants';
 import useTruncate from '../hooks/useTruncate';
 import UpvoteButton from '../shared/UpvoteButton';
 import { getFormattedDate } from '../utils/getFormattedDate';
 export default function CommentV2({ comment }) {
   const [likeCount, setLikeCount] = useState(comment.likes.length);
-  const date = getFormattedDate(comment.createdAt);
+  const commentDate = getFormattedDate(comment.createdAt);
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const {
     outputString: commentBody,
@@ -65,24 +67,24 @@ export default function CommentV2({ comment }) {
               {commentBody}{' '}
               {shouldTruncate && (
                 <Button
-                  variant="link"
+                  variant="ghost"
+                  size="sm"
                   _focus={{ outline: 'none' }}
                   onClick={onToggleTruncate}
                   ml="1"
                 >
-                  {isTruncated ? 'Visa mer' : 'Visa mindre'}
+                  {isTruncated ? 'Visa mer' : 'Visa mindre'}{' '}
+                  <Text as="span" fontSize="sm" ml="1">
+                    {isTruncated ? <ChevronDownIcon /> : <ChevronUpIcon />}
+                  </Text>
                 </Button>
               )}
             </Text>
-            {/* TODO:Välj hur truncate-knappen ska vara, antingen nedan eller ovan */}
-            {shouldTruncate && (
-              <Button variant="outline" onClick={onToggleTruncate}>
-                {isTruncated ? 'Visa mer' : 'Visa mindre'}
-              </Button>
-            )}
-            <Text as="small" opacity="0.8">
-              {date}
-            </Text>
+            <HStack>
+              <Text as="small" opacity="0.8">
+                {commentDate}
+              </Text>
+            </HStack>
           </Stack>
         </Box>
         <UpvoteButton handleClick={addLike} likeCount={likeCount} />

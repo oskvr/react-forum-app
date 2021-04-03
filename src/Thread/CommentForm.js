@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import URL from '../api/apiEndpointConstants';
 import { useThread } from '../hooks/useThread';
-export default function CommentForm(props) {
-  const [content, setContent] = useState('');
+export default function CommentForm({ ...props }) {
   const [author, setAuthor] = useState('');
   const { threadId } = useParams();
   const { mutate } = useThread();
+  const [content, setContent] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [characterCount, setCharacterCount] = useState(0);
   const maxCharacterCount = 5000;
@@ -44,10 +44,12 @@ export default function CommentForm(props) {
       <form onSubmit={postComment}>
         <Box>
           <Input
+            maxLength={50}
             variant="filled"
             onChange={e => setAuthor(e.target.value)}
             value={author}
             placeholder="Namn (frivilligt)"
+            aria-label="Namn (frivilligt)"
           />
           <Box pos="relative">
             <Text
@@ -72,6 +74,7 @@ export default function CommentForm(props) {
               value={content}
               isRequired
               placeholder="Kommentar"
+              aria-label="Kommentar"
               rows="7"
             />
           </Box>
