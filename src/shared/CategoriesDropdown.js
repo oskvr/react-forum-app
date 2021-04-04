@@ -29,7 +29,7 @@ export default function CategoriesDropdown() {
           </MenuButton>
           <MenuList>
             {categories.map(category => (
-              <LinkBox as={MenuItem}>
+              <LinkBox as={MenuItem} key={category._id}>
                 <Box
                   h="2"
                   w="2"

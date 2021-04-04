@@ -48,6 +48,7 @@ export default function Header() {
                 <Tab
                   as={RouteLink}
                   to={`/category/${category._id}`}
+                  key={category._id}
                   _focus={{ outline: 'none' }}
                 >
                   {category.title}

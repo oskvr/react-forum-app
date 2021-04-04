@@ -12,5 +12,13 @@ export function useCategoryThreads() {
     categoryId ? URL.THREADS(categoryId) : null,
     fetcher
   );
-  return { categoryThreads: data ?? [], mutate };
+  const { sortOptions } = useSelector(state => state.sorting);
+  const [sorted, setSorted] = useState([]);
+  useEffect(() => {
+    if (data) {
+      const sorted = sortBy(data, sortOptions.target, 'desc');
+      setSorted([...sorted]);
+    }
+  }, [data, sortOptions]);
+  return { categoryThreads: sorted ?? [], mutate };
 }

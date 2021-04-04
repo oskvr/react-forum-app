@@ -3,6 +3,7 @@ import { FaAccusoft } from 'react-icons/fa';
 import { useParams } from 'react-router';
 import useSWR from 'swr';
 import URL from '../api/apiEndpointConstants';
+import { useGetCategoriesQuery } from '../redux/services/forum';
 import fetcher from '../utils/fetcher';
 const dummyObject = (title, description, color) => {
   return {
@@ -53,7 +54,8 @@ const staticTestData_old = [
 
 export function useCategories() {
   // const { data } = useSWR('./mock_categories.json', fetcher);
-  const { data } = useSWR(URL.CATEGORIES, fetcher);
+  // const { data } = useSWR(URL.CATEGORIES, fetcher);
+  const { data } = useGetCategoriesQuery();
   const { categoryId } = useParams();
   const [parsedData, setParsedData] = useState([]);
   useEffect(() => {
