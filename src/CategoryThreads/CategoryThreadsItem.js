@@ -32,7 +32,7 @@ export default function CategoryThreadsItem({ thread }) {
       >
         <IoMdChatbubbles />
       </Box> */}
-      <HStack>
+      <HStack w={{ base: '100%', sm: '80%' }}>
         <Avatar
           icon={<IoMdChatbubbles />}
           bg={`${current.color}.500`}
@@ -42,7 +42,7 @@ export default function CategoryThreadsItem({ thread }) {
           width={{ base: '2rem', sm: '3rem' }}
           height={{ base: '2rem', sm: '3rem' }}
         />
-        <VStack align="start" spacing="2" maxW={{ base: '100%', sm: '80%' }}>
+        <VStack align="start" spacing="2">
           <Link
             as={RouteLink}
             to={`/category/${categoryId}/thread/${thread._id}`}

@@ -1,13 +1,7 @@
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  HamburgerIcon,
-} from '@chakra-ui/icons';
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
-  IconButton,
-  Link,
   LinkBox,
   LinkOverlay,
   Menu,

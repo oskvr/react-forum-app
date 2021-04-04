@@ -4,8 +4,6 @@ import { useParams } from 'react-router';
 import useSWR from 'swr';
 import URL from '../api/apiEndpointConstants';
 import fetcher from '../utils/fetcher';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../redux/categories';
 const dummyObject = (title, description, color) => {
   return {
     threads: Array(Math.floor(Math.random() * 100)),
@@ -57,7 +55,6 @@ export function useCategories() {
   // const { data } = useSWR('./mock_categories.json', fetcher);
   const { data } = useSWR(URL.CATEGORIES, fetcher);
   const { categoryId } = useParams();
-
   const [parsedData, setParsedData] = useState([]);
   useEffect(() => {
     const parsed = data?.map(category => {

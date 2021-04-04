@@ -1,6 +1,6 @@
 import { Box, HStack, Link, Spacer, Text } from '@chakra-ui/layout';
 import { Tab, TabList, Tabs } from '@chakra-ui/tabs';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { IoLogoOctocat } from 'react-icons/io';
 import { Link as RouteLink, useParams } from 'react-router-dom';
 import { useCategories } from '../hooks/useCategories';

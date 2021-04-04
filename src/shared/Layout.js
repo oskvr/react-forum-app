@@ -7,6 +7,7 @@ import Header from './Header';
 export default function Layout({ children }) {
   return (
     <>
+      {/* TODO: Headern har konstig width vid window resize */}
       <Header />
       <DarkModeSwitch />
       <Progress isIndeterminate hidden={true} size="xs" />
