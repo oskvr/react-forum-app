@@ -16,7 +16,7 @@ export function useCategoryThreads() {
   const [sorted, setSorted] = useState([]);
   useEffect(() => {
     if (data) {
-      const sorted = sortBy(data, sortOptions.target, 'desc');
+      const sorted = sortBy(data, sortOptions.target, sortOptions.order);
       setSorted([...sorted]);
     }
   }, [data, sortOptions]);

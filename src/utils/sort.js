@@ -18,7 +18,6 @@ export function sortBy(array, key, order = 'asc') {
   if (order === 'asc') {
     return sorted;
   } else if (order === 'desc') {
-    console.log('desc');
     return sorted.reverse();
   }
 }

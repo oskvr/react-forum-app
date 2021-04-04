@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Avatar,
   Box,
@@ -10,8 +9,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
-import { FaAccusoft } from 'react-icons/fa';
-import { IoMdMenu, IoMdTrash } from 'react-icons/io';
+import { IoMdMenu } from 'react-icons/io';
 import { Link as RouteLink } from 'react-router-dom';
 export default function CategoryListItem({ category, ...props }) {
   // const { title, description, color } = JSON.parse(category.name);
@@ -19,21 +17,6 @@ export default function CategoryListItem({ category, ...props }) {
   return (
     <ListItem {...props}>
       <HStack>
-        {/* <Flex
-          align="center"
-          justify="center"
-          rounded="full"
-          shrink="0"
-          w="14"
-          h="14"
-          p="4"
-          mr="3"
-          bg={bgColor}
-        >
-          <Box fontSize="2xl" color="white" userSelect="none">
-            {category.name.substring(0, 1).toUpperCase()}
-          </Box>
-        </Flex> */}
         <Avatar
           bg={bgColor}
           color="white"
