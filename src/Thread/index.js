@@ -26,6 +26,10 @@ export default function Thread() {
     setLikeCount(post.likes?.length);
   }, [post]);
 
+  useEffect(() => {
+    document.title = post.title;
+  }, [post]);
+
   async function likeThread() {
     try {
       await fetch(URL.LIKE_THREAD(threadId), {
@@ -39,7 +43,9 @@ export default function Thread() {
       console.erro(error);
     }
   }
-  if (error || !post.content) {
+
+  // Not sure about this but it works for now
+  if (!isLoading && (error || !post.content)) {
     return <NotFound />;
   }
   return (

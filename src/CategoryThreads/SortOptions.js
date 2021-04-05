@@ -33,7 +33,7 @@ export default function SortOptions() {
       tabIndex={tabIndex}
       size="sm"
       variant="solid-rounded"
-      colorScheme="gray"
+      colorScheme="blue"
     >
       <TabList>
         {options.map(option => (

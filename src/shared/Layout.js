@@ -15,7 +15,8 @@ export default function Layout({ children }) {
         as="main"
         mx="auto"
         maxW={{ base: 'container.md', lg: 'container.lg' }}
-        minH="80vh"
+        // minH="80vh"
+        flex="1"
       >
         <Breadcrumbs my="8" />
         {children}

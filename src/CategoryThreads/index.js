@@ -1,5 +1,6 @@
 import { Box, Flex, Spacer, Spinner, Stack } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useCategories } from '../hooks/useCategories';
 import { useCategoryThreads } from '../hooks/useCategoryThreads';
 import NotFound from '../shared/NotFound';
 import CategoryThreadsItem from './CategoryThreadsItem.js';
@@ -8,7 +9,11 @@ import SortOptions from './SortOptions';
 
 export default function CategoryThreads() {
   const { categoryThreads, isLoading } = useCategoryThreads();
+  const { current } = useCategories();
 
+  useEffect(() => {
+    document.title = current.title;
+  }, [current]);
   if (isLoading) {
     return (
       <Flex justify="center" mt="52">
