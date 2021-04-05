@@ -8,20 +8,21 @@ import CreateThreadModal from './CreateThreadModal';
 import SortOptions from './SortOptions';
 
 export default function CategoryThreads() {
-  const { categoryThreads, isLoading } = useCategoryThreads();
+  const { categoryThreads, isLoading, error } = useCategoryThreads();
   const { current } = useCategories();
 
   useEffect(() => {
-    document.title = current.title;
+    document.title = current.title ?? '';
   }, [current]);
-  if (isLoading) {
+  if (!isLoading && (error || !categoryThreads)) {
+    return <NotFound />;
+  } else if (isLoading) {
     return (
       <Flex justify="center" mt="52">
         <Spinner />
       </Flex>
     );
-  }
-  if (categoryThreads.length > 0) {
+  } else {
     return (
       <Box>
         <Stack direction={{ base: 'column', sm: 'row' }} py="4" align="start">
@@ -36,7 +37,5 @@ export default function CategoryThreads() {
         ))}
       </Box>
     );
-  } else {
-    return <NotFound />;
   }
 }

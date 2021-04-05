@@ -6,7 +6,7 @@ import CategoryListItem from './CategoryListItem';
 export default function Categories() {
   const { categories } = useCategories();
   useEffect(() => {
-    document.title = 'Coolkatt';
+    document.title = 'Coolkatt Forum';
   }, []);
   return (
     <List>
