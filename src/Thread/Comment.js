@@ -1,82 +1,93 @@
+import { Avatar } from '@chakra-ui/avatar';
 import { Button } from '@chakra-ui/button';
-import { Image } from '@chakra-ui/image';
-import { Box, HStack, Text, VStack } from '@chakra-ui/layout';
+import { useColorModeValue } from '@chakra-ui/color-mode';
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { Box, HStack, Stack, Text } from '@chakra-ui/layout';
 import React, { useState } from 'react';
-import { FaChevronUp } from 'react-icons/fa';
-export default function Comment({ comment }) {
-  const [likes, setLikes] = useState(comment.likes);
-  function getDateString() {
-    const commentDate = new Date(comment.createdAt);
-    const today = new Date();
-    if (commentDate.getDate() === today.getDate()) {
-      return `Idag, ${commentDate.toLocaleString('sv-SE', {
-        hour: '2-digit',
-        minute: '2-digit',
-      })}`;
-    } else if (commentDate.getDate() === today.getDate() - 1) {
-      return `Igår, ${commentDate.toLocaleString('sv-SE', {
-        hour: '2-digit',
-        minute: '2-digit',
-      })}`;
-    } else {
-      return commentDate.toLocaleString('sv-SE', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-    }
-  }
+import URL from '../api/apiEndpointConstants';
+import useTruncate from '../hooks/useTruncate';
+import UpvoteButton from '../shared/UpvoteButton';
+import { getFormattedDate } from '../utils/getFormattedDate';
+export default function CommentV2({ comment }) {
+  const [likeCount, setLikeCount] = useState(comment.likes.length);
+  const commentDate = getFormattedDate(comment.createdAt);
+  const borderColor = useColorModeValue('gray.200', 'gray.700');
+  const {
+    outputString: commentBody,
+    shouldTruncate,
+    onToggleTruncate,
+    isTruncated,
+  } = useTruncate(comment.content, {
+    maxLength: 1500,
+    ending: '\u2026',
+  });
   function addLike() {
-    fetch(
-      `https://forum-api-jkrop.ondigitalocean.app/comment/${comment._id}/like`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    fetch(URL.LIKE_COMMENT(comment._id), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
       .then(response => response.json())
-      .then(data => {
-        setLikes([...likes, data]);
+      .then(() => {
+        setLikeCount(likeCount + 1);
       })
       .catch(error => {
         console.error('Error:', error);
       });
   }
+
   return (
-    <Box p="8" w="100%" bg="white">
-      <HStack>
-        <Box mr="10" w="20">
-          <Image
-            src={
-              comment.title
-                ? 'https://placekitten.com/110/110'
-                : 'https://via.placeholder.com/100'
-            }
-            w="14"
-            h="14"
-            rounded="full"
-          />
-          <Text>{comment.title || 'Anonym'}</Text>
+    <Box w="100%" p="1">
+      <Box d="flex" position="relative">
+        <Box position="absolute" top="0" left="0" mr="4">
+          <Avatar name={comment.title} />
+          {/* <LetterIcon text={comment.title} /> */}
         </Box>
-        <VStack align="start" spacing="5" flex="1">
-          <Text whiteSpace="pre-wrap">{comment.content}</Text>
-          <Text as="small">{getDateString()}</Text>
-        </VStack>
-        <VStack flexShrink="0" spacing="1">
-          <Button
-            variant="ghost"
-            _focus={{ boxShadow: 'none' }}
-            onClick={addLike}
-          >
-            <FaChevronUp />
-          </Button>
-          <Text as="span">{likes.length}</Text>
-        </VStack>
-      </HStack>
+        <Box
+          ml="6"
+          pl="10"
+          spacing="3"
+          flex="1"
+          borderLeft="2px"
+          borderColor={borderColor}
+        >
+          <Stack mb="10" spacing="3">
+            {comment.title ? (
+              <Text as="small" color="blue.500" fontWeight="semibold">
+                {comment.title}
+              </Text>
+            ) : (
+              <Text as="small" fontWeight="semibold">
+                Anonym
+              </Text>
+            )}
+            <Text whiteSpace="pre-wrap">
+              {commentBody}{' '}
+              {shouldTruncate && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  _focus={{ outline: 'none' }}
+                  onClick={onToggleTruncate}
+                  ml="1"
+                >
+                  {isTruncated ? 'Visa mer' : 'Visa mindre'}{' '}
+                  <Text as="span" fontSize="sm" ml="1">
+                    {isTruncated ? <ChevronDownIcon /> : <ChevronUpIcon />}
+                  </Text>
+                </Button>
+              )}
+            </Text>
+            <HStack>
+              <Text as="small" opacity="0.8">
+                {commentDate}
+              </Text>
+            </HStack>
+          </Stack>
+        </Box>
+        <UpvoteButton handleClick={addLike} likeCount={likeCount} />
+      </Box>
     </Box>
   );
 }

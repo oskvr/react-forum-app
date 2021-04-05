@@ -16,7 +16,7 @@ import { useThread } from '../hooks/useThread';
 import UpvoteButton from '../shared/UpvoteButton';
 import { getFormattedDate } from '../utils/getFormattedDate';
 import CommentForm from './CommentForm';
-import CommentV2 from './CommentV2';
+import Comment from './Comment';
 export default function Thread() {
   const { comments, post, isLoading } = useThread();
   const { threadId } = useParams();
@@ -69,7 +69,7 @@ export default function Thread() {
       </VStack>
       {comments.map(comment => (
         <ScaleFade in={true} initialScale={0.98}>
-          <CommentV2 key={comment._id} comment={comment} />
+          <Comment key={comment._id} comment={comment} />
         </ScaleFade>
       ))}
       <CommentForm w="100%" my="10" />
