@@ -26,6 +26,7 @@ export default function CreateThreadModal() {
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [redirectUrl, setRedirectUrl] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const maxCharacterCount = 5000;
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -66,16 +67,20 @@ export default function CreateThreadModal() {
             <ModalBody>
               <VStack>
                 <Input
+                  maxLength={300}
                   onChange={e => setTitle(e.target.value)}
                   isRequired
                   placeholder="Titel"
+                  aria-label="Titel"
                   autoFocus
                 />
                 <Textarea
+                  maxLength={maxCharacterCount}
                   onChange={e => setContent(e.target.value)}
                   isRequired
                   rows="12"
                   placeholder="Text"
+                  aria-label="Text"
                 />
               </VStack>
             </ModalBody>

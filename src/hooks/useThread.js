@@ -17,6 +17,7 @@ export function useThread() {
     post: threadPost ?? {},
     comments: data ?? [],
     isLoading: !error && !data,
+    error,
     mutate,
   };
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export default function useTruncate(
   originalString,
-  settings = { maxLength: 1000, ending: '...' }
+  settings = { maxLength: 1000, ending: '\u2026' }
 ) {
   const shouldTruncate = originalString?.length > settings.maxLength;
   const [isTruncated, setIsTruncated] = useState(true);

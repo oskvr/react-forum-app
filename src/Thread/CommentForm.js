@@ -11,6 +11,7 @@ export default function CommentForm({ ...props }) {
   const [isLoading, setIsLoading] = useState(false);
   const [characterCount, setCharacterCount] = useState(0);
   const maxCharacterCount = 5000;
+
   async function postComment(e) {
     e.preventDefault();
     if (!content) return;
@@ -26,7 +27,6 @@ export default function CommentForm({ ...props }) {
       },
       body: JSON.stringify(comment),
     });
-    // const data = await res.json();
     mutate();
     setIsLoading(false);
     setContent('');

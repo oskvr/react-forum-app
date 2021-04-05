@@ -4,11 +4,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Categories from './Categories';
 import CategoryThreads from './CategoryThreads';
 import Layout from './shared/Layout';
+import NotFound from './shared/NotFound';
 import Thread from './Thread';
 const routes = [
   { path: '/', component: <Categories /> },
   { path: '/category/:categoryId', component: <CategoryThreads /> },
   { path: '/category/:categoryId/thread/:threadId', component: <Thread /> },
+  { path: '', component: <NotFound /> },
 ];
 function App() {
   return (
@@ -27,9 +29,6 @@ function App() {
 }
 export default App;
 
-// Fixa breadcrumbs. Kan nog använda Redux för att hålla reda på nuvarande kategori och tråd. (FIXED)
-// Breadcrumbs gör så att SWR fetchar undefined. (FIXED)
-// Använd <Avatar/> istället för runda ikoner. Mycket bättre: https://chakra-ui.com/docs/media-and-icons/avatar (FIXED)
 //TODO: https://forums.meteor.com/t/blaze-opencollective-ownership/55449 lite UI-inspo
 //TODO: Mappa färger till de olika kategorierna och visa färgerna i kategori-ikonerna, samt vid hover över kategorierna i headern
 //TODO: Sätt max length för diverse user input. En titel ska inte kunna vara mer än n karaktärer.

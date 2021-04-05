@@ -19,19 +19,21 @@ const options = [
 export default function SortOptions() {
   const dispatch = useDispatch();
   const { sortOptions } = useSelector(state => state.sorting);
-  const tabIndex = options.findIndex(
-    option => option.value === sortOptions.target
+  const [tabIndex, setTabIndex] = useState(
+    options.findIndex(option => option.value === sortOptions.target)
   );
   function handleChange(e) {
+    setTabIndex(options.findIndex(option => option.value === e.target.value));
     const target = e.target.value;
     dispatch(updateSort(target));
   }
   return (
     <Tabs
       defaultIndex={tabIndex}
+      tabIndex={tabIndex}
       size="sm"
       variant="solid-rounded"
-      colorScheme="blue"
+      colorScheme="gray"
     >
       <TabList>
         {options.map(option => (
@@ -47,7 +49,9 @@ export default function SortOptions() {
               {option.icon}
             </Text>
             {option.text}
-            <SortOrderIcon />
+            <Text as="span" ml="1" fontSize="0.6rem" mt="1">
+              <SortOrderIcon />
+            </Text>
           </Tab>
         ))}
       </TabList>

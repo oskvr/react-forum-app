@@ -7,17 +7,16 @@ export const sortingSlice = createSlice({
   },
   reducers: {
     updateSort: (state, action) => {
-      if (action.payload === state.sortOptions.target) {
+      const targetStateIsSame = action.payload === state.sortOptions.target;
+      if (targetStateIsSame) {
         const order = state.sortOptions.order === 'desc' ? 'asc' : 'desc';
         state.sortOptions = { ...state.sortOptions, order };
       } else {
         state.sortOptions = {
           ...state.sortOptions,
-          order: 'desc',
           target: action.payload,
         };
       }
-      console.log('Hejsan världen');
     },
   },
 });

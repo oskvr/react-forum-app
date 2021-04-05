@@ -23,20 +23,14 @@ export default function CategoriesDropdown() {
             rightIcon={isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
             aria-label="Kategorier"
             size="sm"
-            variant="outlined"
+            variant="ghost"
           >
             Kategorier
           </MenuButton>
           <MenuList>
             {categories.map(category => (
               <LinkBox as={MenuItem} key={category._id}>
-                <Box
-                  h="2"
-                  w="2"
-                  rounded="full"
-                  bg={`${category.color}.500`}
-                  mr="2"
-                />
+                <Box h="2" w="2" rounded="full" bg={category.color} mr="2" />
                 <LinkOverlay as={RouteLink} to={`/category/${category._id}`}>
                   {category.title}
                 </LinkOverlay>

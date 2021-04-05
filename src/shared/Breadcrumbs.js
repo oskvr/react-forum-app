@@ -8,11 +8,18 @@ import { useThread } from '../hooks/useThread';
 export default function Breadcrumbs({ ...props }) {
   const { categoryId } = useParams();
   const { post } = useThread();
-  const { current, categories } = useCategories();
+  const { current } = useCategories();
   const paths = [
     { id: 0, text: 'Hem', to: '/' },
     { id: 1, text: current.title, to: `/category/${categoryId}` },
-    { id: 2, text: post.title, to: '' },
+    {
+      id: 2,
+      text:
+        post.title?.length > 50
+          ? post.title.substring(0, 50) + '\u2026'
+          : post.title,
+      to: '',
+    },
   ];
 
   const currentPaths = paths.filter(path => path.text);

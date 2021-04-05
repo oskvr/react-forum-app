@@ -35,7 +35,7 @@ export default function CategoryThreadsItem({ thread }) {
       <HStack w={{ base: '100%', sm: '80%' }}>
         <Avatar
           icon={<IoMdChatbubbles />}
-          bg={`${current.color}.500`}
+          bg={current.color}
           color="white"
           mr={{ base: '1', sm: '3' }}
           alignSelf="start"
@@ -90,7 +90,7 @@ export default function CategoryThreadsItem({ thread }) {
           </Text>
           <FaThumbsUp />
         </HStack>
-        <Box h="14" w="1" bg={`${current.color}.500`}></Box>
+        <Box h="14" w="1" bg={current.color}></Box>
       </HStack>
     </Stack>
   );

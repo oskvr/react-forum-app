@@ -8,7 +8,7 @@ import { sortBy } from '../utils/sort';
 
 export function useCategoryThreads() {
   const { categoryId } = useParams();
-  const { data, mutate } = useSWR(
+  const { data, mutate, error } = useSWR(
     categoryId ? URL.THREADS(categoryId) : null,
     fetcher
   );
@@ -20,5 +20,10 @@ export function useCategoryThreads() {
       setSorted([...sorted]);
     }
   }, [data, sortOptions]);
-  return { categoryThreads: sorted ?? [], mutate };
+  return {
+    categoryThreads: sorted ?? [],
+    mutate,
+    isLoading: !data && !error,
+    error,
+  };
 }

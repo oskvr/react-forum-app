@@ -13,12 +13,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import URL from '../api/apiEndpointConstants';
 import { useThread } from '../hooks/useThread';
+import NotFound from '../shared/NotFound';
 import UpvoteButton from '../shared/UpvoteButton';
 import { getFormattedDate } from '../utils/getFormattedDate';
-import CommentForm from './CommentForm';
 import Comment from './Comment';
+import CommentForm from './CommentForm';
 export default function Thread() {
-  const { comments, post, isLoading } = useThread();
+  const { comments, post, isLoading, error } = useThread();
   const { threadId } = useParams();
   const [likeCount, setLikeCount] = useState(null);
   useEffect(() => {
@@ -38,8 +39,8 @@ export default function Thread() {
       console.erro(error);
     }
   }
-  function sortByLikeCountDesc(data) {
-    return data.sort((a, b) => b.likes.length - a.likes.length);
+  if (error || !post.content) {
+    return <NotFound />;
   }
   return (
     <Box>
@@ -68,8 +69,8 @@ export default function Thread() {
         <Spinner hidden={!isLoading} />
       </VStack>
       {comments.map(comment => (
-        <ScaleFade in={true} initialScale={0.98}>
-          <Comment key={comment._id} comment={comment} />
+        <ScaleFade key={comment._id} in={true} initialScale={0.98}>
+          <Comment comment={comment} />
         </ScaleFade>
       ))}
       <CommentForm w="100%" my="10" />

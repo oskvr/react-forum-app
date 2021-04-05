@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { FaAccusoft } from 'react-icons/fa';
 import { useParams } from 'react-router';
 import useSWR from 'swr';
 import URL from '../api/apiEndpointConstants';
@@ -12,29 +11,15 @@ export function useCategories() {
   const [parsedData, setParsedData] = useState([]);
   useEffect(() => {
     const parsed = data?.map(category => {
-      let newCategory = {};
-      if (category.name === 'Testkategori' || category.name === 'Allmänt') {
-        newCategory = {
-          threads: category.threads,
-          _id: category._id,
-          title: category.name,
-          description: 'Okänd',
-          icon: <FaAccusoft />,
-          color: 'gray',
-          __v: category.__v,
-        };
-      } else {
-        const { title, description, color, icon } = JSON.parse(category.name);
-        newCategory = {
-          threads: category.threads,
-          _id: category._id,
-          title,
-          description,
-          icon,
-          color,
-          __v: category.__v,
-        };
-      }
+      const { title, description, color } = JSON.parse(category.name);
+      const newCategory = {
+        threads: category.threads,
+        _id: category._id,
+        title,
+        description,
+        color: color === 'black' ? 'black' : `${color}.500`,
+        __v: category.__v,
+      };
       return newCategory;
     });
     setParsedData(parsed);
@@ -43,8 +28,6 @@ export function useCategories() {
     ? parsedData?.find(category => category._id === categoryId)
     : {};
 
-  //TODO: if categoryId exists but is not valid it throws an exception now.
-  // Temporary if fix - should return error message instead
   if (!current) current = {};
   return { current, categories: parsedData ?? [] };
 }

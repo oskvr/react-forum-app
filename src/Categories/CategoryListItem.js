@@ -12,18 +12,17 @@ import React from 'react';
 import { IoMdMenu } from 'react-icons/io';
 import { Link as RouteLink } from 'react-router-dom';
 export default function CategoryListItem({ category, ...props }) {
-  // const { title, description, color } = JSON.parse(category.name);
-  const bgColor = `${category.color}.500`;
   return (
     <ListItem {...props}>
       <HStack>
         <Avatar
-          bg={bgColor}
+          bg={category.color}
           color="white"
-          // name={category.title}
           icon={<IoMdMenu />}
+          width={{ base: '2rem', sm: '3rem' }}
+          height={{ base: '2rem', sm: '3rem' }}
         />
-        <Box w="100%">
+        <Box w={{ base: '100%', sm: '80%' }}>
           <Link
             as={RouteLink}
             to={`/category/${category._id}`}
@@ -33,7 +32,7 @@ export default function CategoryListItem({ category, ...props }) {
           >
             {category.title}
           </Link>
-          <Text opacity="0.7" fontSize="sm" w="50%">
+          <Text opacity="0.7" fontSize="sm" w="90%">
             {category.description}
           </Text>
         </Box>
@@ -47,7 +46,7 @@ export default function CategoryListItem({ category, ...props }) {
               {category.threads.length === 1 ? 'Tråd' : 'Trådar'}
             </Text>
           </VStack>
-          <Box h="14" w="1" bg={bgColor}></Box>
+          <Box h="14" w="1" bg={category.color}></Box>
         </HStack>
       </HStack>
     </ListItem>
