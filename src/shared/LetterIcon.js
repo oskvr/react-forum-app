@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/layout';
 import React from 'react';
 
+// Unused atm
 export default function LetterIcon({ text, size }) {
   const letter = text ? text.substring(0, 1).toUpperCase() : '';
   const sizes =

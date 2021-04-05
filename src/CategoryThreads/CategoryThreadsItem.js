@@ -21,17 +21,6 @@ export default function CategoryThreadsItem({ thread }) {
   const { current } = useCategories();
   return (
     <Stack direction={{ base: 'row', sm: 'row' }}>
-      {/* <Box
-        alignSelf="start"
-        rounded="full"
-        bg={`${current.color}.500`}
-        p="3"
-        fontSize="4xl"
-        color="white"
-        mr="3"
-      >
-        <IoMdChatbubbles />
-      </Box> */}
       <HStack w={{ base: '100%', sm: '80%' }}>
         <Avatar
           icon={<IoMdChatbubbles />}
@@ -42,7 +31,7 @@ export default function CategoryThreadsItem({ thread }) {
           width={{ base: '2rem', sm: '3rem' }}
           height={{ base: '2rem', sm: '3rem' }}
         />
-        <VStack align="start" spacing="2">
+        <VStack align="start" spacing="2" maxW="90%">
           <Link
             as={RouteLink}
             to={`/category/${categoryId}/thread/${thread._id}`}
@@ -52,7 +41,7 @@ export default function CategoryThreadsItem({ thread }) {
           >
             {thread.title}
           </Link>
-          <Text noOfLines={2} opacity="0.7">
+          <Text noOfLines={2} opacity="0.7" w="80%">
             {thread.content}
           </Text>
           <HStack spacing="4">
