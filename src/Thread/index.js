@@ -50,10 +50,12 @@ export default function Thread() {
   }
   return (
     <Box>
-      <HStack>
-        <UpvoteButton handleClick={likeThread} likeCount={likeCount} />
-        <Box w="100%">
+      <VStack align="flex-start">
+        <HStack>
+          <UpvoteButton handleClick={likeThread} likeCount={likeCount} />
           <Heading fontWeight="medium">{post.title}</Heading>
+        </HStack>
+        <Box w="95%">
           <Text my="5" whiteSpace="pre-wrap">
             {post.content}
           </Text>
@@ -70,7 +72,7 @@ export default function Thread() {
           </HStack>
           <Divider my="5" />
         </Box>
-      </HStack>
+      </VStack>
       <VStack h="50vh" alignItems="center" justify="center" hidden={!isLoading}>
         <Spinner hidden={!isLoading} />
       </VStack>

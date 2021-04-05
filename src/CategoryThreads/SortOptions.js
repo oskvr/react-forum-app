@@ -28,34 +28,36 @@ export default function SortOptions() {
     dispatch(updateSort(target));
   }
   return (
-    <Tabs
-      defaultIndex={tabIndex}
-      tabIndex={tabIndex}
-      size="sm"
-      variant="solid-rounded"
-      colorScheme="blue"
-    >
-      <TabList>
-        {options.map(option => (
-          <Tab
-            key={option.id}
-            onClick={handleChange}
-            value={option.value}
-            _focus={{ outline: 'none' }}
-            px="4"
-            py="2"
-          >
-            <Text as="span" pointerEvents="none" mr="2">
-              {option.icon}
-            </Text>
-            {option.text}
-            <Text as="span" ml="1" fontSize="0.6rem" mt="1">
-              <SortOrderIcon />
-            </Text>
-          </Tab>
-        ))}
-      </TabList>
-    </Tabs>
+    <>
+      <Tabs
+        defaultIndex={tabIndex}
+        tabIndex={tabIndex}
+        size="sm"
+        variant="solid-rounded"
+        colorScheme="gray"
+      >
+        <TabList>
+          {options.map(option => (
+            <Tab
+              key={option.id}
+              onClick={handleChange}
+              value={option.value}
+              _focus={{ outline: 'none' }}
+              px="4"
+              py="2"
+            >
+              <Text as="span" pointerEvents="none" mr="2">
+                {option.icon}
+              </Text>
+              {option.text}
+              <Text as="span" ml="1" fontSize="0.6rem" mt="1">
+                <SortOrderIcon />
+              </Text>
+            </Tab>
+          ))}
+        </TabList>
+      </Tabs>
+    </>
   );
 }
 function SortOrderIcon() {

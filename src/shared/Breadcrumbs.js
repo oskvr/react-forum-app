@@ -14,10 +14,7 @@ export default function Breadcrumbs({ ...props }) {
     { id: 1, text: current.title, to: `/category/${categoryId}` },
     {
       id: 2,
-      text:
-        post.title?.length > 50
-          ? post.title.substring(0, 50) + '\u2026'
-          : post.title,
+      text: post.title ? 'Tråd' : '',
       to: '',
     },
   ];

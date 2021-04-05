@@ -4,7 +4,6 @@ import {
   HStack,
   Link,
   Spacer,
-  Stack,
   Text,
   VStack,
 } from '@chakra-ui/react';
@@ -20,7 +19,7 @@ export default function CategoryThreadsItem({ thread }) {
   const { categoryId } = useParams();
   const { current } = useCategories();
   return (
-    <Stack direction={{ base: 'row', sm: 'row' }}>
+    <HStack>
       <HStack w={{ base: '100%', sm: '80%' }}>
         <Avatar
           icon={<IoMdChatbubbles />}
@@ -41,7 +40,7 @@ export default function CategoryThreadsItem({ thread }) {
           >
             {thread.title}
           </Link>
-          <Text noOfLines={2} opacity="0.7" w="80%">
+          <Text noOfLines={2} opacity="0.7" w={{ base: '100%', sm: '80%' }}>
             {thread.content}
           </Text>
           <HStack spacing="4">
@@ -81,6 +80,6 @@ export default function CategoryThreadsItem({ thread }) {
         </HStack>
         <Box h="14" w="1" bg={current.color}></Box>
       </HStack>
-    </Stack>
+    </HStack>
   );
 }
