@@ -62,7 +62,7 @@ export default function CommentV2({ comment }) {
                 Anonym
               </Text>
             )}
-            <Text whiteSpace="pre-wrap">
+            <Text whiteSpace="pre-wrap" wordBreak="break-word">
               {commentBody}{' '}
               {shouldTruncate && (
                 <Button
@@ -86,7 +86,7 @@ export default function CommentV2({ comment }) {
             </HStack>
           </Stack>
         </Box>
-        <UpvoteButton handleClick={addLike} likeCount={likeCount} />
+        <UpvoteButton ml="2" handleClick={addLike} likeCount={likeCount} />
       </Box>
     </Box>
   );

@@ -56,7 +56,7 @@ export default function Thread() {
           <Heading fontWeight="medium">{post.title}</Heading>
         </HStack>
         <Box w="95%">
-          <Text my="5" whiteSpace="pre-wrap">
+          <Text my="5" ml="5" whiteSpace="pre-wrap">
             {post.content}
           </Text>
           <HStack>
